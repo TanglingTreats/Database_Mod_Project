@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/TanglingTreats/Database_Mod_Project#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mariadb": "^2.5.3"
   },
   "devDependencies": {
     "eslint": "^7.20.0",
