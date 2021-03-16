@@ -10,7 +10,7 @@ exports.create = (req, res) => {
     }
   
     // Create a hospital record
-    const hospial = new Hospital({
+    const hospital = new Hospital({
       name: req.body.name,
       location: req.body.location,
     });

@@ -22,7 +22,7 @@ Hospital.create = (newHospitalRecord, result) => {
 
   
 Hospital.findByHospitalId = (hospitalId, result) => {
-    sql.query(`SELECT * FROM hospital WHERE id = ${hospitalId}`, (err, res) => {
+    sql.query(`SELECT * FROM hospital WHERE hos_id = ${hospitalId}`, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);

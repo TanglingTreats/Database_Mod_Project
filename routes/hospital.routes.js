@@ -8,6 +8,6 @@ module.exports = app => {
     app.get("/hospital", hospital.findAll);
   
     // Retrieve a single hospital with HospitalId
-    app.get("/hospial/:hospitalId", hospital.findOne);
+    app.get("/hospital/:hospitalId", hospital.findOne);
 
   };
