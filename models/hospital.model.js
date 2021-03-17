@@ -2,8 +2,8 @@ const sql = require("./db.js");
 
 // constructor
 const Hospital = function (hospital) {
-  this.name = hospital.name;
-  this.location = hospital.location;
+  this.hos_name = hospital.hos_name;
+  this.hos_location = hospital.hos_location;
 };
 
 
@@ -15,8 +15,8 @@ Hospital.create = (newHospitalRecord, result) => {
         return;
       }
   
-      console.log("created new hospital record: ", { id: res.insertId, ...newHospitalRecord });
-      result(null, { id: res.insertId, ...newHospitalRecord });
+      console.log("created new hospital record: ", { hos_id: res.insertId, ...newHospitalRecord });
+      result(null, { hos_id: res.insertId, ...newHospitalRecord });
     });
   };
 
@@ -54,4 +54,59 @@ Hospital.findByHospitalId = (hospitalId, result) => {
     });
   };
 
+  Hospital.updateById = (hos_id, hospital, result) => {
+    sql.query(
+      "UPDATE hospital SET hos_name = ?, hos_location = ? WHERE hos_id = ?",
+      [hospital.hos_name, hospital.hos_location, hos_id],
+      (err, res) => {
+        if (err) {
+          console.log("error: ", err);
+          result(null, err);
+          return;
+        }
+  
+        if (res.affectedRows == 0) {
+          // not found hospital with the id
+          result({ kind: "not_found" }, null);
+          return;
+        }
+  
+        console.log("updated hospital: ", { hos_id: hos_id, ...hospital });
+        result(null, { hos_id: hos_id, ...hospital });
+      }
+    );
+  };
+  
+  Hospital.remove = (hos_id, result) => {
+    sql.query("DELETE FROM hospital WHERE hos_id = ?", hos_id, (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+  
+      if (res.affectedRows == 0) {
+        // not found hospital with the id
+        result({ kind: "not_found" }, null);
+        return;
+      }
+  
+      console.log("deleted hospital with id: ", hos_id);
+      result(null, res);
+    });
+  };
+  
+  Hospital.removeAll = result => {
+    sql.query("DELETE FROM hospital", (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+  
+      console.log(`deleted ${res.affectedRows} hospital`);
+      result(null, res);
+    });
+  };
+  
   module.exports = Hospital;

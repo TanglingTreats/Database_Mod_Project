@@ -2,6 +2,6 @@
 module.exports = {
     HOST: "localhost",
     USER: "root",
-    // PASSWORD: "123456",
+    PASSWORD: "password",
     DB: "csc2008_hospital"
   };
