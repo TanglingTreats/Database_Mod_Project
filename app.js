@@ -12,6 +12,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 require("./routes/hospital.routes.js")(app);
+require("./routes/covid19_details.routes.js")(app);
+require("./routes/doctor.routes.js")(app);
+require("./routes/medical_record.routes.js")(app);
 
 // Define routes here 
 app.get('/', (req, res) => {
