@@ -1,0 +1,18 @@
+Doctor
+(Ng teng fong general hospital)
+https://www.ntfgh.com.sg/for-patients-and-visitors/Pages/Find-a-Doctor-Listing.aspx?docname=&specialty=ALL&condition=&institution=Ng%20Teng%20Fong%20General%20Hospital
+(SGH)
+https://www.sgh.com.sg/careers/roles/Medical/Pages/Meet-Our-Doctors.aspx
+
+ID generator
+https://www.345tool.com/generator/random-id-generator
+Doctor - length 6
+
+covid19 condition status
+https://www.asco.org/sites/new-www.asco.org/files/content-files/about-asco/documents/2020-Patient-COVID-19-Status.pdf
+
+covid19 heart rate
+https://www.prevention.com/health/a33263212/does-coronavirus-cause-heart-problems/
+
+blood pressure
+https://www.healthhub.sg/a-z/diseases-and-conditions/735/Understanding-Blood-Pressure-Readings#:~:text=A%20healthy%20blood%20pressure%20reading,higher%20indicates%20high%20blood%20pressure.
