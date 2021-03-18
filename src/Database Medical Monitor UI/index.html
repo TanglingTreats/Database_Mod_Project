@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
     <head>
@@ -64,6 +64,9 @@
                         <li class="active">
                             <a href="index.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
                         </li>
+                        <li>
+                            <a href="search_patient.html"><i class="fa fa-search"></i><span>Search Patient</span></a>
+                        </li>
 						<li>
                             <a href="patients.html"><i class="fa fa-user-md"></i> <span>Patients</span></a>
                         </li>
@@ -72,67 +75,7 @@
             </div>
         </div>
         <!-------------------------------------------------- Main Content Goes Here ---------------------------------------->
-        <div class="page-wrapper">
-            <div class="content">
-                <!----------------------------------------------- Search Bar -------------------------------------------->
-                <div class="row">
-                    <div class="col-12 ml-2 mr-2">
-                        <form class="example" action="action_page.php">
-                            <input type="text" placeholder="Search Patient" name="search">
-                            <button type="submit"><i class="fa fa-search"></i></button>
-                        </form>
-                    </div>
-                </div>
-                <!--------------------------------------------------Patient Status ---------------------------------------->
-                <div class="row">
-                    <div class="col-sm-6 ml-2 mt-4 mr-2">
-                        <h3>Mr Dickson See Qiong</h3>
-                    </div>
-                    <div class="col-sm-5 ml-2 mt-4 mr-2">
-                        <h3>Ward Number: 02, Room Number: 34, Bed Number: 01</h3>
-                    </div>
-                </div>
-                <!--------------------------------------------------- Button ---------------------------------------------->
-                <div class="row mt-2 ml-2 mr-2">
-                    <a class="btn btn-primary" href="#" role="button">View Details</a>
-                </div>
-                <!------------------------------------------------ Table --------------------------------------------------->
-				<div class="row">
-					<div class="col-12 col-md-6 col-lg-6 col-xl-6">
-						<div class="card">
-							<div class="card-body">
-								<div class="chart-title">
-									<h4>Heart Rate</h4>
-								</div>	
-								<canvas id="Heart_Rate"></canvas>
-							</div>
-						</div>
-					</div>
-					<div class="col-12 col-md-6 col-lg-6 col-xl-6">
-						<div class="card">
-							<div class="card-body">
-								<div class="chart-title">
-									<h4>Blood Pressure</h4>
-								</div>	
-								<canvas id="Blood_Pressure"></canvas>
-							</div>
-						</div>
-					</div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-md-6 col-lg-6 col-xl-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="chart-title">
-                                    <h4>Temperature</h4>
-                                </div>	
-                                <canvas id="Temperature"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </div>
     <div class="sidebar-overlay" data-reff=""></div>
     <script src="assets/js/jquery-3.2.1.min.js"></script>
