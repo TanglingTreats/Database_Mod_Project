@@ -10,6 +10,7 @@
         <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <!--[if lt IE 9]>
             <script src="assets/js/html5shiv.min.js"></script>
             <script src="assets/js/respond.min.js"></script>
@@ -73,20 +74,27 @@
         <!-------------------------------------------------- Main Content Goes Here ---------------------------------------->
         <div class="page-wrapper">
             <div class="content">
+                <!----------------------------------------------- Search Bar -------------------------------------------->
                 <div class="row">
-                    <!----------------------------------------------- Search Bar -------------------------------------------->
-                    <div class="col-lg-12">
+                    <div class="col-12 ml-2 mr-2">
                         <form class="example" action="action_page.php">
-                            <input type="text" placeholder="Search.." name="search">
+                            <input type="text" placeholder="Search Patient" name="search">
                             <button type="submit"><i class="fa fa-search"></i></button>
-                          </form>
+                        </form>
+                    </div>
+                </div>
+                <!--------------------------------------------------Patient Status ---------------------------------------->
+                <div class="row">
+                    <div class="col-sm-6 ml-2 mt-4 mr-2">
+                        <h3>Mr Dickson See Qiong</h3>
+                    </div>
+                    <div class="col-sm-5 ml-2 mt-4 mr-2">
+                        <h3>Ward Number: 02, Room Number: 34, Bed Number: 01</h3>
                     </div>
                 </div>
                 <!--------------------------------------------------- Button ---------------------------------------------->
-                <div class="row">
-                    <div class="col-2 mt-2">
-                        <button>View Details</button>
-                    </div>
+                <div class="row mt-2 ml-2 mr-2">
+                    <a class="btn btn-primary" href="#" role="button">View Details</a>
                 </div>
                 <!------------------------------------------------ Table --------------------------------------------------->
 				<div class="row">
