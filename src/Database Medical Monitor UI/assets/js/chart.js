@@ -4,6 +4,32 @@ $(document).ready(function() {
 		labels: ["0000","0100","0200","0300","0400","0500","0600","0700","0800","0900","1000","1100","1200","1300",
 		"1400","1500","1600","1700","1800","1900","2000","2100","2200","2300"],
 		datasets: [{
+			label: "Heart Rate",
+			backgroundColor: "rgba(0, 158, 251, 0.5)",
+			borderColor: 'rgba(0, 158, 251, 0.5)',
+			data: [90,75,83,99,101,120,121,131,135,107,65,72,87,98,105,113,117,127,138,77,91,100,68,108]
+		}]
+	};
+	var linectx = document.getElementById('Heart_Rate').getContext('2d');
+	window.myLine = new Chart(linectx, {
+		type: 'line',
+		data: lineChartData,
+		options: {
+			responsive: true,
+			legend: {
+				display: false,
+			},
+			tooltips: {
+				mode: 'index',
+				intersect: false,
+			}
+		}
+	});
+
+	var lineChartData = {
+		labels: ["0000","0100","0200","0300","0400","0500","0600","0700","0800","0900","1000","1100","1200","1300",
+		"1400","1500","1600","1700","1800","1900","2000","2100","2200","2300"],
+		datasets: [{
 			label: "Systolic Value",
 			backgroundColor: "rgba(0, 158, 251, 0.5)",
 			borderColor: 'rgba(0, 158, 251, 0.5)',
@@ -45,22 +71,6 @@ $(document).ready(function() {
 	};
 	
 	var linectx = document.getElementById('Temperature').getContext('2d');
-	window.myLine = new Chart(linectx, {
-		type: 'line',
-		data: lineChartData,
-		options: {
-			responsive: true,
-			legend: {
-				display: false,
-			},
-			tooltips: {
-				mode: 'index',
-				intersect: false,
-			}
-		}
-	});
-	
-	var linectx = document.getElementById('Heart_Rate').getContext('2d');
 	window.myLine = new Chart(linectx, {
 		type: 'line',
 		data: lineChartData,
