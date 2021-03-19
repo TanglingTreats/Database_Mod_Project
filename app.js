@@ -15,6 +15,10 @@ require("./routes/hospital.routes.js")(app);
 require("./routes/covid19_details.routes.js")(app);
 require("./routes/doctor.routes.js")(app);
 require("./routes/medical_record.routes.js")(app);
+require("./routes/patient.routes.js")(app);
+require("./routes/patient_vitals.routes.js")(app);
+require("./routes/room.routes.js")(app);
+require("./routes/ward_record.routes.js")(app);
 
 // Define routes here 
 app.get('/', (req, res) => {
