@@ -1,4 +1,42 @@
 $(document).ready(function() {
+	var baseUrl = "http://localhost:8000/api";
+
+	function getPatientVital(patient) {
+		console.log("second function");
+		console.log(patient);
+		console.log(patient.patient_vitals_pv_id);
+		var endpoint = "/patient_vitals/"+patient.patient_vitals_pv_id
+		console.log("endpoint is: " + endpoint);
+
+		$.ajax({
+			type: 'GET',
+			url: baseUrl + endpoint,
+			success: function(data) {
+				console.log(data);
+			}
+		});
+	}
+
+	function getFirstPatient(data) {
+		var firstPatient = data[0];
+
+		getPatientVital(firstPatient);
+	}
+
+	function getAllPatients(callback) {
+
+		var endpoint = "/getAllPatients"
+		$.ajax({
+			type: 'GET',
+			url:baseUrl + endpoint,
+			success: function(data) {
+				callback(data)
+			},
+		})
+	}
+
+	getAllPatients(getFirstPatient);
+
 	// Blood Pressure
 	var lineChartData = {
 		labels: ["0000","0100","0200","0300","0400","0500","0600","0700","0800","0900","1000","1100","1200","1300",
