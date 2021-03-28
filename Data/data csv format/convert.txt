@@ -1,0 +1,13 @@
+
+
+reupload
+
+patient
+covid19
+medical_record
+ward_record
+patient_vitals
+
+
+
+yyyy/mm/dd
