@@ -3,7 +3,8 @@ const sql = require("./db.js");
 // constructor
 const Patient_vitals = function (patient_vitals) {
   this.heart_rate = patient_vitals.heart_rate;
-  this.blood_pressure = patient_vitals.blood_pressure;
+  this.bp_systolic = patient_vitals.systolic_bp;
+  this.bp_diastolic = patient_vitals.diastolic_bp;
   this.temperature = patient_vitals.temperature
 };
 
@@ -18,6 +19,22 @@ Patient_vitals.create = (newPatientVitalsRecord, result) => {
   
       console.log("created new patient vitals record: ", { pv_id: res.insertId, ...newPatientVitalsRecord });
       result(null, { pv_id: res.insertId, ...newPatientVitalsRecord });
+    });
+  };
+
+  Patient_vitals.findByPId = (p_id, result) => {
+    sql.query(`SELECT * FROM patient_vitals WHERE patient_patient_id = ${p_id}`,(err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(err, null);
+        return;
+      }
+  
+      if (res.length) {
+        console.log("found patient vital: ", res);
+        result(null, res);
+        return;
+      }
     });
   };
 

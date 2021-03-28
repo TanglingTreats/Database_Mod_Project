@@ -1,25 +1,207 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
+
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+    <title>Health Monitor</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <!--[if lt IE 9]>
+		<script src="assets/js/html5shiv.min.js"></script>
+		<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
+</head>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<body>
+    <div class="main-wrapper">
+        <!-------------------------------------------------------- Top Navigation Bar ------------------------------------------------>
+        <div class="header">
+            <div class="header-left">
+                <a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+                <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
+                <a href="index.html" class="logo">
+                    <span>Health Monitor</span>
+                </a>
+            </div>
+            <ul class="nav user-menu float-right">
+                <li class="nav-item dropdown has-arrow">
+                    <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
+                        <span class="user-img">
+                            <img class="rounded-circle" src="assets/img/user.jpg" width="24" alt="Admin">
+                            <span class="status online"></span>
+                        </span>
+                        <span>Admin</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="profile.html">My Profile</a>
+                        <a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
+                        <a class="dropdown-item" href="settings.html">Settings</a>
+                        <a class="dropdown-item" href="login.html">Logout</a>
+                    </div>
+                </li>
+            </ul>
+            <div class="dropdown mobile-user-menu float-right">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="profile.html">My Profile</a>
+                    <a class="dropdown-item" href="edit-profile.html">Edit Profile</a>
+                    <a class="dropdown-item" href="settings.html">Settings</a>
+                    <a class="dropdown-item" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+        <!---------------------------------------------------------- Side Navigation Bar ---------------------------------------------->
+        <div class="sidebar" id="sidebar">
+            <div class="sidebar-inner slimscroll">
+                <div id="sidebar-menu" class="sidebar-menu">
+                    <ul>
+                        <li class="menu-title">Main</li>
+                        <li class="active">
+                            <a href="index.html"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
+                        </li>
+                        <li>
+                            <a href="search_patient.html"><i class="fa fa-search"></i><span>Search Patient</span></a>
+                        </li>
+						<li>
+                            <a href="patients.html"><i class="fa fa-user-md"></i> <span>Patients</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="page-wrapper">
+            <div class="content">
+                <!------------------------------------------------- Main Content Goes Here ---------------------------------------------->
+                <!------------------------------------------------- Patient Name and Details -------------------------------------------->
+                <div class="row mb-2">
+                    <div class="col-sm-7 ml-2 mt-2 mr-2">
+                        <h3>Mr Dickson See Qiong</h3>
+                    </div>
+                    <div class="col-sm-4 ml-2 mt-2 mr-2">
+                        <h4>Ward Number: 02, Room Number: 34, Bed Number: 01</h4>
+                    </div>
+                </div>
+                <!------------------------------------------------------- Patient Vitals ------------------------------------------------>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-sm-11">
+                                <h4>Vital Signs</h4>
+                                <p>Last Updated: 18 March 2021, 2300</p>
+                            </div>
+                            <div class="col-sm-1">
+                                <a class="btn btn-primary" href="add_vitals.html" role="button">Update</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="card">
+                                    <div class="row ml-4 mt-4">
+                                        <div class="col-sm-4">
+                                            <img src="Images/Heart_Rate.jpg" alt="Heart Rate Icon" style="width: 14ch;height:13ch;">
+                                        </div>
+                                        <div class="col-sm-8" style="font-size: large;">
+                                            <div class="card-header">
+                                                <h4>Heart Rate</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <p>150</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="card">
+                                    <div class="row ml-4 mt-4">
+                                        <div class="col-sm-4">
+                                            <img src="Images/Blood_Pressure.png" alt="Blood Pressure Icon" style="width: 14ch;height:13ch;">
+                                        </div>
+                                        <div class="col-sm-8" style="font-size: large;">
+                                            <div class="card-header">
+                                                <h4>Blood Pressure</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <p>151/54</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="card">
+                                    <div class="row ml-4 mt-4">
+                                        <div class="col-sm-4">
+                                            <img src="Images/Temperature.png" alt="Temperature Icon" style="width: 14ch;height:13ch;">
+                                        </div>
+                                        <div class="col-sm-8" style="font-size: large;">
+                                            <div class="card-header">
+                                                <h4>Temperature</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <p>36.9</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!----------------------------------------------------- Graph ----------------------------------------------------------->
+				<div class="row">
+					<div class="col-12 col-md-6 col-lg-6 col-xl-6">
+						<div class="card">
+							<div class="card-body">
+								<div class="chart-title">
+									<h4>Heart Rate</h4>
+								</div>	
+								<canvas id="Heart_Rate"></canvas>
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-md-6 col-lg-6 col-xl-6">
+						<div class="card">
+							<div class="card-body">
+								<div class="chart-title">
+									<h4>Blood Pressure</h4>
+								</div>	
+								<canvas id="Blood_Pressure"></canvas>
+							</div>
+						</div>
+					</div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="chart-title">
+                                    <h4>Temperature</h4>
+                                </div>	
+                                <canvas id="Temperature"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			</div>
+        </div>
+    <div class="sidebar-overlay" data-reff=""></div>
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+	<script src="assets/js/popper.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/jquery.slimscroll.js"></script>
+    <script src="assets/js/Chart.bundle.js"></script>
+    <script src="assets/js/chart.js"></script>
+    <script src="assets/js/app.js"></script>
 
-    <title>Hello, world!</title>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Hello, world!</h1>
-      <p>This is a paragrah</p>
-    </div>
+</body>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
+
+
 </html>

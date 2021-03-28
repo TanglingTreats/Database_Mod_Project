@@ -12,7 +12,8 @@ exports.create = (req, res) => {
     // Create a Patient vitals record
     const patient_vitals = new Patient_vitals({
       heart_rate: req.body.heart_rate,
-      blood_pressure: req.body.blood_pressure,
+      bp_systolic: req.body.bp_systolic,
+      bp_diastolic: req.body.bp_diastolic,
       temperature: req.body.temperature,
 
     });
@@ -39,6 +40,22 @@ exports.findAll = (req, res) => {
       else res.send(data);
     });
   };
+
+exports.findByPatient = (req, res) => {
+  Patient_vitals.findByPId(req.params.pId, (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `Not found Patient vital record with patient Id ${req.params.pId}.`
+          });
+        } else {
+          res.status(500).send({
+            message: "Error retrieving Patient vital record with patient Id " + req.params.pId
+          });
+        }
+      } else res.send(data);
+  });
+}
 
 // Find a single Patient vitals record with a PvId
 exports.findOne = (req, res) => {

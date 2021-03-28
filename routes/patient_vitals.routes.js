@@ -7,6 +7,9 @@ module.exports = app => {
     // Retrieve all patient vitals record
     app.get("/api/patient_vitals", patient_vitals.findAll);
   
+    // Retrieve all records of a single patient
+    app.get("/api/get_patient_vitals/:pId", patient_vitals.findByPatient);
+
     // Retrieve a single patient vitals with patient vitalID
     app.get("/api/patient_vitals/:pvId", patient_vitals.findOne);
 
