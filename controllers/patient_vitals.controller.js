@@ -12,8 +12,8 @@ exports.create = (req, res) => {
     // Create a Patient vitals record
     const patient_vitals = new Patient_vitals({
       heart_rate: req.body.heart_rate,
-      systolic_bp: req.body.blood_pressure,
-      diastolic_bp: req.body.blood_pressure,
+      bp_systolic: req.body.bp_systolic,
+      bp_diastolic: req.body.bp_diastolic,
       temperature: req.body.temperature,
 
     });

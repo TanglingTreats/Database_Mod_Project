@@ -5,7 +5,7 @@ $(document).ready(function() {
 		console.log("second function");
 		console.log(patient);
 		console.log(patient.patient_vitals_pv_id);
-		var endpoint = "/patient_vitals/"+patient.patient_vitals_pv_id
+		var endpoint = "/get_patient_vitals/"+patient.patient_id
 		console.log("endpoint is: " + endpoint);
 
 		$.ajax({

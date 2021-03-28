@@ -3,8 +3,8 @@ const sql = require("./db.js");
 // constructor
 const Patient_vitals = function (patient_vitals) {
   this.heart_rate = patient_vitals.heart_rate;
-  this.systolic_bp = patient_vitals.systolic_bp;
-  this.diastolic_bp = patient_vitals.diastolic_bp;
+  this.bp_systolic = patient_vitals.systolic_bp;
+  this.bp_diastolic = patient_vitals.diastolic_bp;
   this.temperature = patient_vitals.temperature
 };
 
