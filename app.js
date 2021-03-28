@@ -3,7 +3,8 @@ const express = require('express')
 const app = express()
 const port = 8000;
 
-app.use(express.static(path.join(__dirname, 'src')));
+// app.use(express.static(path.join(__dirname, 'src')));
+app.use(express.static(path.join(__dirname, '/src/')));
 
 // parse requests of content-type: application/json
 app.use(express.json());
@@ -22,7 +23,7 @@ require("./routes/ward_record.routes.js")(app);
 
 // Define routes here 
 app.get('/', (req, res) => {
-    res.send("index.html")
+    res.sendFile(path.join(__dirname + '/src/index.html'));
 });
 
 app.listen(port, () => {
