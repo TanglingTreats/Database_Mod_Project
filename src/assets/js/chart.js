@@ -4,6 +4,8 @@ import * as Route from './routes.js'
 $(document).ready(function() {
 	// var baseUrl = "http://localhost:8000/api";
 
+	var currentDate = document.getElementById("currentDate");
+
 	function getPatientVital(patient) {
 		console.log(patient);
 		var endpoint = "/get_patient_vitals/"+patient.patient_id
@@ -15,6 +17,7 @@ $(document).ready(function() {
 				console.log(data);
 				generateCharts(data);
 				generateCardData(data.pop());
+				currentDate.innerText = new Date().toDateString();
 			}
 		});
 	}
