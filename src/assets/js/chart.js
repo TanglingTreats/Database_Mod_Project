@@ -1,42 +1,26 @@
+import * as Patient from './patient.js'
+import * as Route from './routes.js'
+
 $(document).ready(function() {
-	var baseUrl = "http://localhost:8000/api";
+	// var baseUrl = "http://localhost:8000/api";
 
 	function getPatientVital(patient) {
-		console.log("second function");
 		console.log(patient);
-		console.log(patient.patient_vitals_pv_id);
 		var endpoint = "/get_patient_vitals/"+patient.patient_id
-		console.log("endpoint is: " + endpoint);
 
 		$.ajax({
 			type: 'GET',
-			url: baseUrl + endpoint,
+			url: Route.baseUrl + endpoint,
 			success: function(data) {
-				console.log(data);
+				// console.log(data);
 				generateCharts(data);
 			}
 		});
 	}
 
-	function getFirstPatient(data) {
-		var firstPatient = data[0];
+	Patient.getAllPatients(Patient.getFirstPatient, getPatientVital);
 
-		getPatientVital(firstPatient);
-	}
-
-	function getAllPatients(callback) {
-
-		var endpoint = "/getAllPatients"
-		$.ajax({
-			type: 'GET',
-			url:baseUrl + endpoint,
-			success: function(data) {
-				callback(data)
-			},
-		})
-	}
-
-	getAllPatients(getFirstPatient);
+	// getPatientVital();
 
 	function generateCharts(patientData) {
 
@@ -45,7 +29,7 @@ $(document).ready(function() {
 		var diastolicBp = [];
 		var tempData = [];
 
-		for(i of patientData) {
+		for(var i of patientData) {
 			heartRateData.push(i.heart_rate);
 			systolicBp.push(i.bp_systolic);
 			diastolicBp.push(i.bp_diastolic);
