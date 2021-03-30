@@ -12,8 +12,9 @@ $(document).ready(function() {
 			type: 'GET',
 			url: Route.baseUrl + endpoint,
 			success: function(data) {
-				// console.log(data);
+				console.log(data);
 				generateCharts(data);
+				generateCardData(data.pop());
 			}
 		});
 	}
@@ -21,6 +22,18 @@ $(document).ready(function() {
 	Patient.getAllPatients(Patient.getFirstPatient, getPatientVital);
 
 	// getPatientVital();
+	
+	var patientHR = document.getElementById('cardHeartRate');
+	var patientBP = document.getElementById('cardBloodPressure');
+	var patientTemp = document.getElementById('cardTemperature');
+	function generateCardData(patientData) {
+
+		patientHR.textContent = patientData.heart_rate;
+
+		patientBP.textContent = `${patientData.bp_systolic}/${patientData.bp_diastolic}`;
+		
+		patientTemp.textContent = `${patientData.temperature}°C`
+	}
 
 	function generateCharts(patientData) {
 
