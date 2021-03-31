@@ -1,42 +1,91 @@
+import * as Patient from './patient.js'
+import * as Route from './routes.js'
+
 $(document).ready(function() {
-	var baseUrl = "http://localhost:8000/api";
+	// var baseUrl = "http://localhost:8000/api";
+
+	var currentDate = document.getElementById("currentDate");
 
 	function getPatientVital(patient) {
-		console.log("second function");
 		console.log(patient);
-		console.log(patient.patient_vitals_pv_id);
-		var endpoint = "/get_patient_vitals/"+patient.patient_id
-		console.log("endpoint is: " + endpoint);
+		var endpoint = "/get_patient_vitals/"+patient.patient_id;
 
 		$.ajax({
 			type: 'GET',
-			url: baseUrl + endpoint,
+			url: Route.baseUrl + endpoint,
 			success: function(data) {
 				console.log(data);
 				generateCharts(data);
+				var lastData = data.pop();
+				generateCardData(lastData);
+				getCovidDetails(lastData)
+				currentDate.innerText = new Date().toDateString();
 			}
 		});
 	}
-
-	function getFirstPatient(data) {
-		var firstPatient = data[0];
-
-		getPatientVital(firstPatient);
-	}
-
-	function getAllPatients(callback) {
-
-		var endpoint = "/getAllPatients"
+	
+	function getCovidDetails(pV) {
+		var endpoint = "/covid19_details/"+pV.covid19_details_covid_id;
 		$.ajax({
 			type: 'GET',
-			url:baseUrl + endpoint,
+			url: Route.baseUrl + endpoint,
 			success: function(data) {
-				callback(data)
-			},
+				console.log(data);
+				generateCovidDetails(data);
+			}
+		});
+	}
+	
+	var ward = document.getElementById("wardNumber");
+	var room = document.getElementById("roomNumber");
+	var bed = document.getElementById("bedNumber");
+	function getRoomDetails(patientData) {
+		var endpoint = "/room/" + patientData.room_id;
+		
+		$.ajax({
+			type: 'GET',
+			url: Route.baseUrl + endpoint,
+			success: function(data) {
+				console.log(data);
+				ward.textContent = data.ward_no;
+				room.textContent = data.room_no;
+				bed.textContent = data.bed_no;
+			}
 		})
 	}
 
-	getAllPatients(getFirstPatient);
+	Patient.getAllPatients(Patient.getFirstPatient, getPatientVital);
+
+	Patient.getAllPatients(Patient.getFirstPatient, getRoomDetails);
+
+
+	var covidResult = document.getElementById("covidResult");
+	var infectedDate = document.getElementById("infectedDate");
+	var lastTested = document.getElementById("lastTested");
+	var vaccDate = document.getElementById("vaccinationDate");
+	var conditions = document.getElementById("conditions");
+	
+	var testResults = ["Negative", "Positive"]
+	function generateCovidDetails(patientData) {
+		covidResult.textContent = testResults[patientData.is_positive];
+		infectedDate.textContent = new Date(patientData.infected_date).toDateString();
+		lastTested.textContent = new Date(patientData.last_tested).toDateString();
+		vaccDate.textContent = new Date(patientData.injection_date).toDateString();
+		conditions.textContent = patientData.conditions;
+	}
+
+	var patientHR = document.getElementById('cardHeartRate');
+	var patientBP = document.getElementById('cardBloodPressure');
+	var patientTemp = document.getElementById('cardTemperature');
+
+	function generateCardData(patientData) {
+
+		patientHR.textContent = patientData.heart_rate;
+
+		patientBP.textContent = `${patientData.bp_systolic}/${patientData.bp_diastolic}`;
+		
+		patientTemp.textContent = `${patientData.temperature}°C`
+	}
 
 	function generateCharts(patientData) {
 
@@ -45,7 +94,7 @@ $(document).ready(function() {
 		var diastolicBp = [];
 		var tempData = [];
 
-		for(i of patientData) {
+		for(var i of patientData) {
 			heartRateData.push(i.heart_rate);
 			systolicBp.push(i.bp_systolic);
 			diastolicBp.push(i.bp_diastolic);
