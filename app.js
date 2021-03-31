@@ -5,6 +5,7 @@ const port = 8000;
 
 // app.use(express.static(path.join(__dirname, 'src')));
 app.use(express.static(path.join(__dirname, '/src/')));
+app.use(express.static(path.join(__dirname, '/src/assets')));
 
 // parse requests of content-type: application/json
 app.use(express.json());

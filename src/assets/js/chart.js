@@ -8,7 +8,7 @@ $(document).ready(function() {
 
 	function getPatientVital(patient) {
 		console.log(patient);
-		var endpoint = "/get_patient_vitals/"+patient.patient_id
+		var endpoint = "/get_patient_vitals/"+patient.patient_id;
 
 		$.ajax({
 			type: 'GET',
@@ -35,8 +35,28 @@ $(document).ready(function() {
 			}
 		});
 	}
+	
+	var ward = document.getElementById("wardNumber");
+	var room = document.getElementById("roomNumber");
+	var bed = document.getElementById("bedNumber");
+	function getRoomDetails(patientData) {
+		var endpoint = "/room/" + patientData.room_id;
+		
+		$.ajax({
+			type: 'GET',
+			url: Route.baseUrl + endpoint,
+			success: function(data) {
+				console.log(data);
+				ward.textContent = data.ward_no;
+				room.textContent = data.room_no;
+				bed.textContent = data.bed_no;
+			}
+		})
+	}
 
 	Patient.getAllPatients(Patient.getFirstPatient, getPatientVital);
+
+	Patient.getAllPatients(Patient.getFirstPatient, getRoomDetails);
 
 
 	var covidResult = document.getElementById("covidResult");

@@ -76,7 +76,8 @@ DROP TABLE IF EXISTS `csc2008_hospital`.`room` ;
 CREATE TABLE IF NOT EXISTS `csc2008_hospital`.`room` (
   `room_id` INT(11) NOT NULL AUTO_INCREMENT,
   `room_no` VARCHAR(45) NOT NULL,
-  `ward` VARCHAR(45) NOT NULL,
+  `ward_no` VARCHAR(45) NOT NULL,
+  `bed_no` VARCHAR(45) NOT NULL,
   `hospital_hos_id` INT(11) NOT NULL,
   PRIMARY KEY (`room_id`, `hospital_hos_id`),
   INDEX `fk_room_hospital_idx` (`hospital_hos_id` ASC) VISIBLE,
@@ -290,24 +291,24 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `csc2008_hospital`;
-INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward`, `hospital_hos_id`) VALUES (1100, '101', 'A', 1);
-INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward`, `hospital_hos_id`) VALUES (1101, '102', 'A', 1);
-INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward`, `hospital_hos_id`) VALUES (1102, '103', 'A', 1);
-INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward`, `hospital_hos_id`) VALUES (1103, '201', 'B', 1);
-INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward`, `hospital_hos_id`) VALUES (1104, '202', 'B', 1);
-INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward`, `hospital_hos_id`) VALUES (1105, '203', 'B', 1);
-INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward`, `hospital_hos_id`) VALUES (1106, '301', 'C', 1);
-INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward`, `hospital_hos_id`) VALUES (1107, '302', 'C', 1);
-INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward`, `hospital_hos_id`) VALUES (1108, '303', 'C', 1);
-INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward`, `hospital_hos_id`) VALUES (1109, '11', 'A', 2);
-INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward`, `hospital_hos_id`) VALUES (1110, '12', 'A', 2);
-INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward`, `hospital_hos_id`) VALUES (1111, '13', 'A', 2);
-INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward`, `hospital_hos_id`) VALUES (1112, '21', 'B', 2);
-INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward`, `hospital_hos_id`) VALUES (1113, '22', 'B', 2);
-INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward`, `hospital_hos_id`) VALUES (1114, '23', 'B', 2);
-INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward`, `hospital_hos_id`) VALUES (1115, '31', 'C', 2);
-INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward`, `hospital_hos_id`) VALUES (1116, '32', 'C', 2);
-INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward`, `hospital_hos_id`) VALUES (1117, '33', 'C', 2);
+INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward_no`, `bed_no`, `hospital_hos_id`) VALUES (1100, '101', 'A', 1, 1);
+INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward_no`, `bed_no`, `hospital_hos_id`) VALUES (1101, '102', 'A', 2, 1);
+INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward_no`, `bed_no`, `hospital_hos_id`) VALUES (1102, '103', 'A', 3, 1);
+INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward_no`, `bed_no`, `hospital_hos_id`) VALUES (1103, '201', 'B', 4, 1);
+INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward_no`, `bed_no`, `hospital_hos_id`) VALUES (1104, '202', 'B', 5, 1);
+INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward_no`, `bed_no`, `hospital_hos_id`) VALUES (1105, '203', 'B', 6, 1);
+INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward_no`, `bed_no`, `hospital_hos_id`) VALUES (1106, '301', 'C', 7, 1);
+INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward_no`, `bed_no`, `hospital_hos_id`) VALUES (1107, '302', 'C', 8, 1);
+INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward_no`, `bed_no`, `hospital_hos_id`) VALUES (1108, '303', 'C', 9, 1);
+INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward_no`, `bed_no`, `hospital_hos_id`) VALUES (1109, '11', 'A',  10, 2);
+INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward_no`, `bed_no`, `hospital_hos_id`) VALUES (1110, '12', 'A',  11, 2);
+INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward_no`, `bed_no`, `hospital_hos_id`) VALUES (1111, '13', 'A',  12, 2);
+INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward_no`, `bed_no`, `hospital_hos_id`) VALUES (1112, '21', 'B',  13, 2);
+INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward_no`, `bed_no`, `hospital_hos_id`) VALUES (1113, '22', 'B',  14, 2);
+INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward_no`, `bed_no`, `hospital_hos_id`) VALUES (1114, '23', 'B',  15, 2);
+INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward_no`, `bed_no`, `hospital_hos_id`) VALUES (1115, '31', 'C',  16, 2);
+INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward_no`, `bed_no`, `hospital_hos_id`) VALUES (1116, '32', 'C',  17, 2);
+INSERT INTO `csc2008_hospital`.`room` (`room_id`, `room_no`, `ward_no`, `bed_no`, `hospital_hos_id`) VALUES (1117, '33', 'C',  18, 2);
 
 COMMIT;
 
