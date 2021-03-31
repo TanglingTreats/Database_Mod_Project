@@ -16,19 +16,53 @@ $(document).ready(function() {
 			success: function(data) {
 				console.log(data);
 				generateCharts(data);
-				generateCardData(data.pop());
+				var lastData = data.pop();
+				generateCardData(lastData);
+				getCovidDetails(lastData)
 				currentDate.innerText = new Date().toDateString();
+			}
+		});
+	}
+	
+	function getCovidDetails(pV) {
+		var endpoint = "/covid19_details/"+pV.covid19_details_covid_id;
+		$.ajax({
+			type: 'GET',
+			url: Route.baseUrl + endpoint,
+			success: function(data) {
+				console.log(data);
+				generateCovidDetails(data);
 			}
 		});
 	}
 
 	Patient.getAllPatients(Patient.getFirstPatient, getPatientVital);
 
-	// getPatientVital();
-	
+
+	var covidResult = document.getElementById("covidResult");
+	var infectedDate = document.getElementById("infectedDate");
+	var lastTested = document.getElementById("lastTested");
+	var vaccDate = document.getElementById("vaccinationDate");
+	var conditions = document.getElementById("conditions");
+	function generateCovidDetails(patientData) {
+		console.log(patientData.injection_date);
+		if(patientData.is_positive) {
+			covidResult.textContent = "Positive";
+		} else {
+			covidResult.textContent = "Negative";
+		}
+		infectedDate.textContent = new Date(patientData.infected_date).toDateString();
+		lastTested.textContent = new Date(patientData.last_tested).toDateString();
+		vaccDate.textContent = new Date(patientData.injection_date).toDateString();
+		conditions.textContent = patientData.conditions;
+
+		
+	}
+
 	var patientHR = document.getElementById('cardHeartRate');
 	var patientBP = document.getElementById('cardBloodPressure');
 	var patientTemp = document.getElementById('cardTemperature');
+
 	function generateCardData(patientData) {
 
 		patientHR.textContent = patientData.heart_rate;
