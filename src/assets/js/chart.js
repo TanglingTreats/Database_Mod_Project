@@ -44,19 +44,14 @@ $(document).ready(function() {
 	var lastTested = document.getElementById("lastTested");
 	var vaccDate = document.getElementById("vaccinationDate");
 	var conditions = document.getElementById("conditions");
+	
+	var testResults = ["Negative", "Positive"]
 	function generateCovidDetails(patientData) {
-		console.log(patientData.injection_date);
-		if(patientData.is_positive) {
-			covidResult.textContent = "Positive";
-		} else {
-			covidResult.textContent = "Negative";
-		}
+		covidResult.textContent = testResults[patientData.is_positive];
 		infectedDate.textContent = new Date(patientData.infected_date).toDateString();
 		lastTested.textContent = new Date(patientData.last_tested).toDateString();
 		vaccDate.textContent = new Date(patientData.injection_date).toDateString();
 		conditions.textContent = patientData.conditions;
-
-		
 	}
 
 	var patientHR = document.getElementById('cardHeartRate');
