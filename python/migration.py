@@ -2,8 +2,10 @@
     MariaDB to MongoDB migration script based on new structure for NoSQL
 """
 import mariadb
+import pymongo
 import sys
 
+# Try connection to mariadb
 try:
     sql_conn = mariadb.connect(
         user="root",
@@ -15,6 +17,11 @@ try:
 except mariadb.Error as e:
     print(f"Error connecting to MariaDB platform: {e}")
     sys.exit(1)
+
+try:
+    mongo_client = pymongo.MongoClient("mongodb://localhost:27017/")
+except:
+    print("No hosts found! Did you start mongodb service?")
     
 # Get cursor
 sql_cur = sql_conn.cursor(dictionary=True)
@@ -66,5 +73,8 @@ print(medical_record_result)
 
 print("ward record")
 print(ward_result)
+
+# Start mongodb migration
+hospital_db = mongo_client["csc2008_hospital"]
 
 sql_conn.close()
