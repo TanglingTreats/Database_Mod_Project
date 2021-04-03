@@ -25,6 +25,7 @@ $(document).ready(function() {
 	}
 	
 	function getCovidDetails(pV) {
+		console.log(pV.covid19_details_covid_id);
 		var endpoint = "/covid19_details/"+pV.covid19_details_covid_id;
 		$.ajax({
 			type: 'GET',

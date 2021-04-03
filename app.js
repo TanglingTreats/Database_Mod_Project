@@ -32,6 +32,7 @@ switch (dbType) {
       console.log("Mongo");
       require("./routes/" + dbType + "/patient.routes.js")(app);
       require("./routes/" + dbType + "/patient_vitals.routes.js")(app);
+      require("./routes/" + dbType + "/covid19_details.routes.js")(app);
     });
     break;
 }

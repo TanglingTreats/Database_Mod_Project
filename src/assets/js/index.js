@@ -20,7 +20,14 @@ $(document).ready(function() {
             url: endpoint,
             success: function(data) {
                 userName.textContent = data.doctor_name
+            },
+            error: function(data) {
+                Patient.getAllPatients(Patient.getFirstPatient, getPatientDoctor);
             }
         });
+    }
+
+    function getPatientDoctor(patientData) {
+        userName.textContent = patientData.doctor.doctor_name;
     }
 });

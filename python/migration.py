@@ -94,7 +94,8 @@ for i in patient_vitals_result:
             "bp_systolic" : i['bp_systolic'],
             "bp_diastolic" : i['bp_diastolic'],
             "temperature" : i['temperature'],
-            "vital_datetime" : i['vital_datetime']
+            "vital_datetime" : i['vital_datetime'],
+            "covid19_details_covid_id" : i['covid19_details_covid_id']
             }
     print(patient_vital)
     patient_vital_list.append(patient_vital)
