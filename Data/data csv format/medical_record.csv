@@ -1,0 +1,11 @@
+﻿mr_id,mr_date,appt_type,illness,patient_patient_id,patient_room_room_id,patient_room_hospital_hos_id,patient_patient_virals_pv_id,patient_doctor_doctor_id
+4000,2015/10/13,consultation,fever,100,1100,1,2000,170995
+4001,2018/11/29,check up,stomachache,101,1101,1,2001,170995
+4002,2019/04/05,consultation,cough,102,1102,1,2002,170996
+4003,2019/08/16,consultation,fever,103,1103,1,2003,170996
+4004,2017/05/18,check up,fever,104,1104,1,2004,170997
+4005,2018/06/16,consultation,stomachache,105,1109,2,2005,170998
+4006,2016/08/20,consultation,cough,106,1110,2,2006,170998
+4007,2018/09/23,consultation,flu,107,1111,2,2007,170999
+4008,2016/08/21,check up,fever,108,1112,2,2008,170999
+4009,2016/11/27,consultation,flu,109,1113,2,2009,171000
