@@ -28,11 +28,11 @@ DROP TABLE IF EXISTS `csc2008_hospital`.`covid19_details` ;
 CREATE TABLE IF NOT EXISTS `csc2008_hospital`.`covid19_details` (
   `covid_id` INT(11) NOT NULL AUTO_INCREMENT,
   `is_positive` TINYINT(4) NOT NULL,
-  `infected_date` DATE NULL DEFAULT NULL,
-  `last_tested` DATE NULL DEFAULT NULL,
-  `injection_date` DATE NULL DEFAULT NULL,
+  `infected_date` DATETIME NULL DEFAULT NULL,
+  `last_tested` DATETIME NULL DEFAULT NULL,
+  `injection_date` DATETIME NULL DEFAULT NULL,
   `condition_status` VARCHAR(45) NOT NULL,
-  `conditions` VARCHAR(255) NOT NULL,
+  `symptoms` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`covid_id`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 6520
@@ -233,26 +233,26 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `csc2008_hospital`;
-INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `conditions`) VALUES (6500, TRUE, '2021/02/25', '2021/02/18', '2021/02/28', 'STABLE', 'Fever, Difficulty Breathing');
-INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `conditions`) VALUES (6501, TRUE, '2021/02/22', '2021/02/15', '2021/02/25', 'CRITICAL', 'Pneumonia, Irregular Heart Rate');
-INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `conditions`) VALUES (6502, TRUE, '2021/01/02', '2020/12/26', '2021/01/05', 'CRITICAL', 'Pneumonia, Irregular Heart Rate');
-INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `conditions`) VALUES (6503, TRUE, '2021/02/28', '2021/02/21', '2021/03/03', 'CRITICAL', 'Pneumonia, Irregular Heart Rate');
-INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `conditions`) VALUES (6504, TRUE, '2021/02/17', '2021/02/10', '2021/02/20', 'CRITICAL', 'Pneumonia, Irregular Heart Rate');
-INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `conditions`) VALUES (6505, TRUE, '2021/01/10', '2021/01/03', '2021/01/13', 'STABLE', 'Fever');
-INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `conditions`) VALUES (6506, TRUE, '2021/01/24', '2021/01/17', '2021/01/27', 'STABLE', 'Diarrhoea, Nausea');
-INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `conditions`) VALUES (6507, TRUE, '2021/01/18', '2021/01/11', '2021/01/21', 'STABLE', 'Diarrhoea');
-INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `conditions`) VALUES (6508, TRUE, '2021/01/03', '2020/12/27', '2021/01/06', 'STABLE', 'Inflammation');
-INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `conditions`) VALUES (6509, TRUE, '2021/02/15', '2021/02/08', '2021/02/18', 'CRITICAL', 'Arrhythmia');
-INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `conditions`) VALUES (6510, TRUE, '2021/02/21', '2021/02/14', '2021/02/24', 'CRITICAL', 'Arrhythmia');
-INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `conditions`) VALUES (6511, TRUE, '2021/02/03', '2021/01/27', '2021/02/06', 'STABLE', 'Cought, Sorethroat');
-INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `conditions`) VALUES (6512, TRUE, '2021/01/13', '2021/01/06', '2021/01/16', 'STABLE', 'Cought, Sorethroat');
-INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `conditions`) VALUES (6513, FALSE, '2021/01/29', '2021/01/22', '2021/02/01', 'STABLE', 'Cought, Sorethroat');
-INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `conditions`) VALUES (6514, FALSE, '2021/01/09', '2021/01/02', '2021/01/12', 'STABLE', 'Cought, Sorethroat');
-INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `conditions`) VALUES (6515, FALSE, '2021/02/08', '2021/02/01', '2021/02/11', 'STABLE', 'Cought, Sorethroat');
-INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `conditions`) VALUES (6516, FALSE, '2021/02/06', '2021/01/30', '2021/02/09', 'STABLE', 'Cought, Sorethroat');
-INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `conditions`) VALUES (6517, FALSE, '2021/02/10', '2021/02/03', '2021/02/13', 'CRITICAL', 'Arrhythmia, Hypotension');
-INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `conditions`) VALUES (6518, FALSE, '2021/01/10', '2021/01/03', '2021/01/13', 'CRITICAL', 'Arrhythmia, Hypotension');
-INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `conditions`) VALUES (6519, FALSE, '2021/03/02', '2021/02/23', '2021/03/05', 'CRITICAL', 'Arrhythmia, Hypotension');
+INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `symptoms`) VALUES (6500, TRUE, '2021/02/25', '2021/02/18', '2021/02/28', 'STABLE', 'Fever, Difficulty Breathing');
+INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `symptoms`) VALUES (6501, TRUE, '2021/02/22', '2021/02/15', '2021/02/25', 'CRITICAL', 'Pneumonia, Irregular Heart Rate');
+INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `symptoms`) VALUES (6502, TRUE, '2021/01/02', '2020/12/26', '2021/01/05', 'CRITICAL', 'Pneumonia, Irregular Heart Rate');
+INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `symptoms`) VALUES (6503, TRUE, '2021/02/28', '2021/02/21', '2021/03/03', 'CRITICAL', 'Pneumonia, Irregular Heart Rate');
+INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `symptoms`) VALUES (6504, TRUE, '2021/02/17', '2021/02/10', '2021/02/20', 'CRITICAL', 'Pneumonia, Irregular Heart Rate');
+INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `symptoms`) VALUES (6505, TRUE, '2021/01/10', '2021/01/03', '2021/01/13', 'STABLE', 'Fever');
+INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `symptoms`) VALUES (6506, TRUE, '2021/01/24', '2021/01/17', '2021/01/27', 'STABLE', 'Diarrhoea, Nausea');
+INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `symptoms`) VALUES (6507, TRUE, '2021/01/18', '2021/01/11', '2021/01/21', 'STABLE', 'Diarrhoea');
+INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `symptoms`) VALUES (6508, TRUE, '2021/01/03', '2020/12/27', '2021/01/06', 'STABLE', 'Inflammation');
+INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `symptoms`) VALUES (6509, TRUE, '2021/02/15', '2021/02/08', '2021/02/18', 'CRITICAL', 'Arrhythmia');
+INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `symptoms`) VALUES (6510, TRUE, '2021/02/21', '2021/02/14', '2021/02/24', 'CRITICAL', 'Arrhythmia');
+INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `symptoms`) VALUES (6511, TRUE, '2021/02/03', '2021/01/27', '2021/02/06', 'STABLE', 'Cought, Sorethroat');
+INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `symptoms`) VALUES (6512, TRUE, '2021/01/13', '2021/01/06', '2021/01/16', 'STABLE', 'Cought, Sorethroat');
+INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `symptoms`) VALUES (6513, FALSE, '2021/01/29', '2021/01/22', '2021/02/01', 'STABLE', 'Cought, Sorethroat');
+INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `symptoms`) VALUES (6514, FALSE, '2021/01/09', '2021/01/02', '2021/01/12', 'STABLE', 'Cought, Sorethroat');
+INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `symptoms`) VALUES (6515, FALSE, '2021/02/08', '2021/02/01', '2021/02/11', 'STABLE', 'Cought, Sorethroat');
+INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `symptoms`) VALUES (6516, FALSE, '2021/02/06', '2021/01/30', '2021/02/09', 'STABLE', 'Cought, Sorethroat');
+INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `symptoms`) VALUES (6517, FALSE, '2021/02/10', '2021/02/03', '2021/02/13', 'CRITICAL', 'Arrhythmia, Hypotension');
+INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `symptoms`) VALUES (6518, FALSE, '2021/01/10', '2021/01/03', '2021/01/13', 'CRITICAL', 'Arrhythmia, Hypotension');
+INSERT INTO `csc2008_hospital`.`covid19_details` (`covid_id`, `is_positive`, `infected_date`, `last_tested`, `injection_date`, `condition_status`, `symptoms`) VALUES (6519, FALSE, '2021/03/02', '2021/02/23', '2021/03/05', 'CRITICAL', 'Arrhythmia, Hypotension');
 
 COMMIT;
 
