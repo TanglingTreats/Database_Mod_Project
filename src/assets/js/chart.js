@@ -80,6 +80,7 @@ $(document).ready(function() {
 
 	function generateCardData(patientData) {
 
+		console.log(patientData);
 		patientHR.textContent = patientData.heart_rate;
 
 		patientBP.textContent = `${patientData.bp_systolic}/${patientData.bp_diastolic}`;

@@ -1,4 +1,4 @@
-const Patient = require("../../models/patient.model.js");
+const Patient = require("../../models/mongo/patient.model.js");
 
 // Create and Save a new patient record
 exports.create = (req, res) => {

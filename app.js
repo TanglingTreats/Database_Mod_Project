@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express')
+var mongoDb = require('./models/mongo/db.mongo.js');
 const app = express()
 const port = 8000;
 
@@ -14,21 +15,25 @@ app.use(express.json());
 // parse requests of content-type: application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-switch(dbType) {
-    case "sql":
-        require("./routes/"+dbType+"/hospital.routes.js")(app);
-        require("./routes/"+dbType+"/covid19_details.routes.js")(app);
-        require("./routes/"+dbType+"/doctor.routes.js")(app);
-        require("./routes/"+dbType+"/medical_record.routes.js")(app);
-        require("./routes/"+dbType+"/patient.routes.js")(app);
-        require("./routes/"+dbType+"/patient_vitals.routes.js")(app);
-        require("./routes/"+dbType+"/room.routes.js")(app);
-        require("./routes/"+dbType+"/ward_record.routes.js")(app);
-        break;
-    case "mongo":
-        console.log("Mongo");
-        require("./routes/"+dbType+"/patient.routes.js")(app);
-        break;
+switch (dbType) {
+  case "sql":
+    require("./routes/" + dbType + "/hospital.routes.js")(app);
+    require("./routes/" + dbType + "/covid19_details.routes.js")(app);
+    require("./routes/" + dbType + "/doctor.routes.js")(app);
+    require("./routes/" + dbType + "/medical_record.routes.js")(app);
+    require("./routes/" + dbType + "/patient.routes.js")(app);
+    require("./routes/" + dbType + "/patient_vitals.routes.js")(app);
+    require("./routes/" + dbType + "/room.routes.js")(app);
+    require("./routes/" + dbType + "/ward_record.routes.js")(app);
+    break;
+  case "mongo":
+    mongoDb.connectToServer(function (err, client) {
+      if (err) console.log(err);
+      console.log("Mongo");
+      require("./routes/" + dbType + "/patient.routes.js")(app);
+      require("./routes/" + dbType + "/patient_vitals.routes.js")(app);
+    });
+    break;
 }
 
 // Define routes here 
