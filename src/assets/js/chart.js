@@ -71,7 +71,7 @@ $(document).ready(function() {
 		infectedDate.textContent = new Date(patientData.infected_date).toDateString();
 		lastTested.textContent = new Date(patientData.last_tested).toDateString();
 		vaccDate.textContent = new Date(patientData.injection_date).toDateString();
-		conditions.textContent = patientData.conditions;
+		conditions.textContent = patientData.symptoms;
 	}
 
 	var patientHR = document.getElementById('cardHeartRate');
