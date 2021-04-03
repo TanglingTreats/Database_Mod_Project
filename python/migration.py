@@ -21,6 +21,7 @@ except mariadb.Error as e:
     print(f"Error connecting to MariaDB platform: {e}")
     sys.exit(1)
 
+# Try connection for mongoDB
 try:
     mongo_client = pymongo.MongoClient("mongodb://localhost:27017/")
 except:
@@ -80,6 +81,7 @@ for i in patient_result:
 res = patient_collection.insert_many(patient_list)
 print(res.inserted_ids)
 #----------------------------
+
 # ----------- Insert patient_vital data -----------
 patient_vital_collection = hospital_db['patient_vital']
 patient_vital_collection.drop()
@@ -104,6 +106,7 @@ pp.pprint(patient_vital_list)
 res = patient_vital_collection.insert_many(patient_vital_list)
 print(res.inserted_ids)
 
+# ----------- Insert covid19 test data -----------
 covid_collection = hospital_db["covid_detail"]
 covid_collection.drop()
 
