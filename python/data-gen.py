@@ -22,13 +22,16 @@ class Symptoms(Enum):
     Tiredness = 2
     Arrythmia = 3
     Pneumonia = 4
-    Runny_Nose = 5
-    Cough = 6
+    Sore_Throat = 5
+    Headache = 6
+    Runny_Nose = 7
+    Cough = 8
+
     
 
 enumRange = {
         "covidMin" : 0,
-        "covidMax" : len(Symptoms)-1,
+        "covidMax" : len(Symptoms)-2,
         "regMin" : 5,
         "regMax" : len(Symptoms)-1
         }
