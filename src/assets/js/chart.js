@@ -51,6 +51,11 @@ $(document).ready(function() {
 				ward.textContent = data.ward_no;
 				room.textContent = data.room_no;
 				bed.textContent = data.bed_no;
+			},
+			error: function(data) {
+				ward.textContent = patientData.ward_info.ward;
+				room.textContent = patientData.ward_info.room;
+				bed.textContent = patientData.ward_info.bed;
 			}
 		})
 	}
