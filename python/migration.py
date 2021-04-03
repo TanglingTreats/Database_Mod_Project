@@ -119,7 +119,7 @@ for i in covid_vital_result:
         "is_positive": i['is_positive'],
         "infected_date": i['infected_date'],
         "injection_date": i['injection_date'],
-        "last_tested_date": i['last_tested'],
+        "last_tested": i['last_tested'],
         "symptoms": i['symptoms'],
         "condition": i['condition_status']
     }
