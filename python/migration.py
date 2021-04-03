@@ -1,9 +1,12 @@
 """
     MariaDB to MongoDB migration script based on new structure for NoSQL
 """
+import pprint
 import mariadb
 import pymongo
 import sys
+
+pp=pprint.PrettyPrinter(indent=4)
 
 # Try connection to mariadb
 try:
@@ -40,30 +43,11 @@ doctor_result = sql_cur.fetchall()
 sql_cur.execute("SELECT * FROM medical_record")
 medical_record_result = sql_cur.fetchall()
 
+sql_cur.execute("SELECT * FROM covid19_details")
+covid_detail_result = sql_cur.fetchall()
 
 # -------------- Get data from MariaDB -------------- 
     
-print("Patient: ")
-print(patient_result)
-'''
-print("Room: ")
-print(room_result)
-
-print("Hospital")
-print(hospital_result)
-
-print("Covid19_Test")
-print(covid19_details_result)
-
-print("doctor_results")
-print(doctor_result)
-
-print("medical_record")
-print(medical_record_result)
-
-print("ward record")
-print(ward_result)
-'''
 # Start mongodb migration
 # Separate unbounded information into different collection. e.g. patient vitals
 hospital_db = mongo_client["csc2008_hospital"]
@@ -113,5 +97,35 @@ for i in patient_vitals_result:
             "vital_datetime" : i['vital_datetime']
             }
     print(patient_vital)
+    patient_vital_list.append(patient_vital)
+
+pp.pprint(patient_vital_list)
+res = patient_vital_collection.insert_many(patient_vital_list)
+print(res.inserted_ids)
+
+covid_collection = hospital_db["covid_detail"]
+covid_collection.drop()
+
+covid_detail_list = []
+
+sql_cur.execute("SELECT * FROM covid19_details INNER JOIN patient_vitals ON covid19_details.covid_id = patient_vitals.covid19_details_covid_id ")
+covid_vital_result = sql_cur.fetchall()
+pp.pprint(covid_vital_result)
+for i in covid_vital_result:
+    covid_detail = {
+        "covid_detail_id": i['covid_id'],
+        "patient_id": i['patient_patient_id'],
+        "is_positive": i['is_positive'],
+        "infected_date": i['infected_date'],
+        "injection_date": i['injection_date'],
+        "last_tested_date": i['last_tested'],
+        "symptoms": i['symptoms'],
+        "condition": i['condition_status']
+    }
+    print(covid_detail)
+    covid_detail_list.append(covid_detail)
+
+res = covid_collection.insert_many(covid_detail_list)
+print(res.inserted_ids)
 
 sql_conn.close()
