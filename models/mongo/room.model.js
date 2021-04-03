@@ -1,4 +1,5 @@
-const sql = require("./db.sql.js");
+const mongoClient = require("./db.mongo.js");
+var roomCollection = mongoClient.getDb().collection('room');
 
 // constructor
 const Room = function (room) {

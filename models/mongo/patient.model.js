@@ -1,4 +1,5 @@
-const sql = require("./db.sql.js");
+const mongoClient = require("./db.mongo.js");
+var patientCollection = mongoClient.getDb().collection('patient');
 
 // constructor
 const Patient = function (patient) {
@@ -23,35 +24,20 @@ Patient.create = (newPatientRecord, result) => {
 
   
   Patient.findByPatientId = (patientId, result) => {
-    sql.query(`SELECT * FROM patient WHERE patient_id = ${patientId}`, (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        result(err, null);
-        return;
-      }
-  
-      if (res.length) {
-        console.log("found patient: ", res[0]);
-        result(null, res[0]);
-        return;
-      }
-  
-      // not found hospital with the id
-      result({ kind: "not_found" }, null);
-    });
+    var query = {"patient_id":patientId};
+    patientCollection.find(query).toArray(function(err, results) {
+        if (err) throw err;
+
+        result( null, results );
+      });
+
   };
 
 
   Patient.getAll = result => {
-    sql.query("SELECT * FROM patient", (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        result(null, err);
-        return;
-      }
-  
-      console.log("patient: ", res);
-      result(null, res);
+    patientCollection.find().toArray(function(err, results) {
+      if (err) throw err;
+      result( null, results );
     });
   };
 

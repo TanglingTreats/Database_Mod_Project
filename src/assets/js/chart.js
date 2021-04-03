@@ -25,6 +25,7 @@ $(document).ready(function() {
 	}
 	
 	function getCovidDetails(pV) {
+		console.log(pV.covid19_details_covid_id);
 		var endpoint = "/covid19_details/"+pV.covid19_details_covid_id;
 		$.ajax({
 			type: 'GET',
@@ -50,6 +51,11 @@ $(document).ready(function() {
 				ward.textContent = data.ward_no;
 				room.textContent = data.room_no;
 				bed.textContent = data.bed_no;
+			},
+			error: function(data) {
+				ward.textContent = patientData.ward_info.ward;
+				room.textContent = patientData.ward_info.room;
+				bed.textContent = patientData.ward_info.bed;
 			}
 		})
 	}
@@ -71,7 +77,7 @@ $(document).ready(function() {
 		infectedDate.textContent = new Date(patientData.infected_date).toDateString();
 		lastTested.textContent = new Date(patientData.last_tested).toDateString();
 		vaccDate.textContent = new Date(patientData.injection_date).toDateString();
-		conditions.textContent = patientData.conditions;
+		conditions.textContent = patientData.symptoms;
 	}
 
 	var patientHR = document.getElementById('cardHeartRate');
@@ -80,6 +86,7 @@ $(document).ready(function() {
 
 	function generateCardData(patientData) {
 
+		console.log(patientData);
 		patientHR.textContent = patientData.heart_rate;
 
 		patientBP.textContent = `${patientData.bp_systolic}/${patientData.bp_diastolic}`;

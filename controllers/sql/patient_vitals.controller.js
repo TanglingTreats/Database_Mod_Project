@@ -1,4 +1,4 @@
-const Patient_vitals = require("../models/patient_vitals.model.js");
+const Patient_vitals = require("../../models/patient_vitals.model.js");
 
 // Create and Save a new Patient vitals record
 exports.create = (req, res) => {

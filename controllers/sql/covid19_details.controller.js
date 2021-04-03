@@ -1,4 +1,4 @@
-const Covid19_details = require("../models/covid19_details.model.js");
+const Covid19_details = require("../../models/covid19_details.model.js");
 
 // Create and Save a new covid19 details record
 exports.create = (req, res) => {

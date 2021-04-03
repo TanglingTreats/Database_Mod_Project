@@ -1,4 +1,4 @@
-const Room = require("../models/room.model.js");
+const Room = require("../../models/room.model.js");
 
 // Create and Save a new room record
 exports.create = (req, res) => {

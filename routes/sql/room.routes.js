@@ -1,6 +1,6 @@
 module.exports = app => {
-    const room = require("../controllers/room.controller.js");
-  
+    const room = require("../../controllers/sql/room.controller.js");
+
     // Create a new room record
     app.post("/api/room", room.create);
   
