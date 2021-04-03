@@ -1,5 +1,5 @@
 module.exports = app => {
-    const patient_vitals = require("../controllers/patient_vitals.controller.js");
+    const patient_vitals = require("../../controllers/sql/patient_vitals.controller.js");
   
     // Create a new patient vitals record
     app.post("/api/patient_vitals", patient_vitals.create);

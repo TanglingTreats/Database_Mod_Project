@@ -3,7 +3,6 @@ const express = require('express')
 const app = express()
 const port = 8000;
 
-console.log(process.env.npm_package_config_dbType);
 var dbType = process.env.npm_package_config_dbType; 
 
 app.use(express.static(path.join(__dirname, '/src/')));
@@ -28,6 +27,7 @@ switch(dbType) {
         break;
     case "mongo":
         console.log("Mongo");
+        require("./routes/"+dbType+"/patient.routes.js")(app);
         break;
 }
 

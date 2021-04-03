@@ -1,4 +1,4 @@
-const Doctor = require("../models/doctor.model.js");
+const Doctor = require("../../models/doctor.model.js");
 
 // Create and Save a new doctor details
 exports.create = (req, res) => {

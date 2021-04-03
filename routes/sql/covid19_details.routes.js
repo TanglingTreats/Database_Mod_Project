@@ -1,5 +1,5 @@
 module.exports = app => {
-    const covid19_details = require("../../controllers/covid19_details.controller.js");
+    const covid19_details = require("../../controllers/sql/covid19_details.controller.js");
   
     // Create a new covid19 details
     app.post("/api/covid19_details", covid19_details.create);

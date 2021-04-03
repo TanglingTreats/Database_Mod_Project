@@ -1,4 +1,4 @@
-const Hospital = require("../models/hospital.model.js");
+const Hospital = require("../../models/hospital.model.js");
 
 // Create and Save a new hospital record
 exports.create = (req, res) => {

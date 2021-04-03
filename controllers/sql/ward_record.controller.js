@@ -1,4 +1,4 @@
-const Ward_record = require("../models/ward_record.model.js");
+const Ward_record = require("../../models/ward_record.model.js");
 
 // Create and Save a new room record
 exports.create = (req, res) => {
