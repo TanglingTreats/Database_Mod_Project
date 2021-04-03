@@ -94,7 +94,8 @@ for i in patient_vitals_result:
             "bp_systolic" : i['bp_systolic'],
             "bp_diastolic" : i['bp_diastolic'],
             "temperature" : i['temperature'],
-            "vital_datetime" : i['vital_datetime']
+            "vital_datetime" : i['vital_datetime'],
+            "covid19_details_covid_id" : i['covid19_details_covid_id']
             }
     print(patient_vital)
     patient_vital_list.append(patient_vital)
@@ -118,7 +119,7 @@ for i in covid_vital_result:
         "is_positive": i['is_positive'],
         "infected_date": i['infected_date'],
         "injection_date": i['injection_date'],
-        "last_tested_date": i['last_tested'],
+        "last_tested": i['last_tested'],
         "symptoms": i['symptoms'],
         "condition": i['condition_status']
     }

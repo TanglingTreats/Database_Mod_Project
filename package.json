@@ -7,6 +7,9 @@
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "config": {
+    "dbType": "mongo"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TanglingTreats/Database_Mod_Project.git"
@@ -24,6 +27,8 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "mariadb": "^2.5.3",
+    "mongodb": "^3.6.5",
+    "mongoose": "^5.12.3",
     "mysql": "^2.18.1"
   },
   "devDependencies": {

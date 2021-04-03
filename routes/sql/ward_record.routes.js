@@ -1,5 +1,5 @@
 module.exports = app => {
-    const ward_record = require("../controllers/ward_record.controller.js");
+    const ward_record = require("../../controllers/sql/ward_record.controller.js");
   
     // Create a new ward record
     app.post("/api/ward_record", ward_record.create);

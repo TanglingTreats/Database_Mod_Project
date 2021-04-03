@@ -1,5 +1,5 @@
 module.exports = app => {
-    const patient = require("../controllers/patient.controller.js");
+    const patient = require("../../controllers/mongo/patient.controller.js");
   
     // Create a new patient record
     app.post("/api/createPatient", patient.create);

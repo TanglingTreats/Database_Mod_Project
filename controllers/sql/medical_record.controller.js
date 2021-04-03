@@ -1,4 +1,4 @@
-const Medical_record = require("../models/medical_record.model.js");
+const Medical_record = require("../../models/medical_record.model.js");
 
 // Create and Save a new medical record
 exports.create = (req, res) => {

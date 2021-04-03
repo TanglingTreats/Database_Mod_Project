@@ -1,4 +1,5 @@
-const sql = require("./db.sql.js");
+const mongoClient = require("./db.mongo.js");
+var covidDetailsCollection = mongoClient.getDb().collection('covid_detail');
 
 // constructor
 const Covid19_details = function (covid19_details) {
@@ -25,21 +26,9 @@ Covid19_details.create = (newCovid19Details, result) => {
 
   
   Covid19_details.findByCovidId = (covid_id, result) => {
-    sql.query(`SELECT * FROM covid19_details WHERE covid_id = ${covid_id}`, (err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        result(err, null);
-        return;
-      }
-  
-      if (res.length) {
-        console.log("found Covid19 details: ", res[0]);
-        result(null, res[0]);
-        return;
-      }
-  
-      // not found Covid19 details with the id
-      result({ kind: "not_found" }, null);
+    var query = {covid_detail_id: parseInt(covid_id)}
+    covidDetailsCollection.find(query).toArray(function(err, results) {
+      result(null, results[0]);
     });
   };
 

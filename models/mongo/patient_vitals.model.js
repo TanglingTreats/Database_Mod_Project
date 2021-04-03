@@ -1,4 +1,5 @@
-const sql = require("./db.sql.js");
+const mongoClient = require("./db.mongo.js");
+var patientVitalCollection = mongoClient.getDb().collection('patient_vital');
 
 // constructor
 const Patient_vitals = function (patient_vitals) {
@@ -23,18 +24,11 @@ Patient_vitals.create = (newPatientVitalsRecord, result) => {
   };
 
   Patient_vitals.findByPId = (p_id, result) => {
-    sql.query(`SELECT * FROM patient_vitals WHERE patient_patient_id = ${p_id}`,(err, res) => {
-      if (err) {
-        console.log("error: ", err);
-        result(err, null);
-        return;
-      }
-  
-      if (res.length) {
-        console.log("found patient vital: ", res);
-        result(null, res);
-        return;
-      }
+    const query = {patient_id: parseInt(p_id)};
+    patientVitalCollection.find(query).toArray(function(err, results) {
+      if (err) {result( err, null )};
+      result(null, results);
+      return;
     });
   };
 
