@@ -49,6 +49,7 @@ def getAvgTimesInMilli(totalTimes):
     for i in totalTimes:
         timeTaken += i
     avgTime =  round((timeTaken / len(totalTimes)) * 1000, 2)
+    totalTimes.clear()
     return avgTime
 
 def printResults(type, sqlTime, noSqlTime):
@@ -75,7 +76,7 @@ patient_vital_collection = db[f"{tableName}"]
 print(f"\nTesting Query speeds for {tableName}")
 
 def runSQLSelect():
-    sql_cur.execute(f"SELECT * FROM {tableName}")
+    sql_cur.execute(f"SELECT * FROM {tableName};")
     sql_cur.fetchall()
 
 runTest(runSQLSelect)
@@ -84,7 +85,6 @@ print("\nCalculating times for SQL")
 sqlAvgTime = getAvgTimesInMilli(totalTimes)
 print(f"Average time for SQL is: {sqlAvgTime}ms")
 
-totalTimes.clear()
     
 def runNoSQLFind():
     res = patient_vital_collection.find()
@@ -92,15 +92,31 @@ def runNoSQLFind():
 runTest(runNoSQLFind)
 
 print("\nCalculating times for NoSQL")
-mongoAvgTime = getAvgTimesInMilli(totalTimes)
-print(f"Average time for NoSQL is: {mongoAvgTime}ms")
+noSQLAvgTime = getAvgTimesInMilli(totalTimes)
+print(f"Average time for NoSQL is: {noSQLAvgTime}ms")
 
-printResults("Query", sqlAvgTime, mongoAvgTime)
+printResults("Query", sqlAvgTime, noSQLAvgTime)
 
-print(f"Testing Update speeds for {tableName}")
+print(f"\nTesting Update speeds for {tableName}")
 
 def runSQLUpdate():
-    sql_cur.execute("UPDATE patient")
+    sql_cur.execute(f"UPDATE {tableName} SET heart_rate = 75;")
+    # Required to make changes to the database
+    sql_conn.commit()
+
+runTest(runSQLUpdate)
+
+sqlAvgTime = getAvgTimesInMilli(totalTimes)
+print(f"Average time for SQL is: {sqlAvgTime}ms")
+
+def runNoSQLUpdate():
+    patient_vital_collection.update_many({}, {'$set':{"heart_rate": 75}})
+
+runTest(runNoSQLUpdate)
+noSQLAvgTime = getAvgTimesInMilli(totalTimes)
+print(f"Average time for NoSQL is: {noSQLAvgTime}ms")
+
+printResults("Update", sqlAvgTime, noSQLAvgTime)
 
 print("\nClosing connections")
 sql_conn.close()
