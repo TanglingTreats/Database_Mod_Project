@@ -13,7 +13,7 @@ export function getAllPatients(callback, taskCallback) {
         type: 'GET',
         url:baseUrl + endpoint,
         success: function(data) {
-            console.log(data);
+            // console.log(data);
             callback(data, taskCallback)
         },
     })

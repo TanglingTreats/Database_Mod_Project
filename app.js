@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 switch (dbType) {
   case "sql":
+    console.log("sql");
     require("./routes/" + dbType + "/hospital.routes.js")(app);
     require("./routes/" + dbType + "/covid19_details.routes.js")(app);
     require("./routes/" + dbType + "/doctor.routes.js")(app);
