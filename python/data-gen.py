@@ -97,10 +97,10 @@ except:
 sql_cur = sql_conn.cursor(dictionary=True)
 
 # Arrange in descending to get latest entry
-sql_cur.execute("SELECT * FROM patient_vitals ORDER BY vital_datetime DESC")
+sql_cur.execute("SELECT * FROM patient_vital ORDER BY vital_datetime DESC")
 latest_patient_vital_record = sql_cur.fetchone()
 
-sql_cur.execute("SELECT MIN(heart_rate) as min_heart_rate, MAX(heart_rate) as max_heart_rate, MIN(bp_systolic) as min_bp_systolic, MAX(bp_systolic) as max_bp_systolic, MIN(bp_diastolic) as min_bp_diastolic, MAX(bp_diastolic) max_bp_diastolic, MIN(temperature) as min_temp, MAX(temperature) as max_temp FROM patient_vitals")
+sql_cur.execute("SELECT MIN(heart_rate) as min_heart_rate, MAX(heart_rate) as max_heart_rate, MIN(bp_systolic) as min_bp_systolic, MAX(bp_systolic) as max_bp_systolic, MIN(bp_diastolic) as min_bp_diastolic, MAX(bp_diastolic) max_bp_diastolic, MIN(temperature) as min_temp, MAX(temperature) as max_temp FROM patient_vital")
 
 covid_vital_info = sql_cur.fetchone()
 # print(latest_patient_vital_record['vital_datetime'])
@@ -169,7 +169,7 @@ while(True):
             symptom = Symptoms(sympInt).name.replace("_"," ")
             symptoms += symptom
 
-    sql_cur.execute("""INSERT INTO patient_vitals 
+    sql_cur.execute("""INSERT INTO patient_vital 
         (pv_id, heart_rate, bp_systolic, bp_diastolic, temperature, vital_datetime,
          patient_patient_id, patient_room_room_id, patient_room_hospital_hos_id, 
         patient_patient_vitals_pv_id, patient_doctor_doctor_id, covid19_details_covid_id)
