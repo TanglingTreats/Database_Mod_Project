@@ -40,6 +40,8 @@ else:
     numOfRuns = 5
     
 totalTimes = []
+
+tableName = "patient_vital"
 # --------------------------------------------
 
 def getAvgTimesInMilli(totalTimes):
@@ -69,11 +71,11 @@ sql_cur = sql_conn.cursor(dictionary=True)
 db = mongo_client["csc2008_hospital"]
 
 
-patient_vital_collection = db["patient_vital"]
-print("\nTesting Query speeds for patient_vitals")
+patient_vital_collection = db[f"{tableName}"]
+print(f"\nTesting Query speeds for {tableName}")
 
 def runSQLSelect():
-    sql_cur.execute("SELECT * FROM patient_vitals")
+    sql_cur.execute(f"SELECT * FROM {tableName}")
     sql_cur.fetchall()
 
 runTest(runSQLSelect)
@@ -95,7 +97,7 @@ print(f"Average time for NoSQL is: {mongoAvgTime}ms")
 
 printResults("Query", sqlAvgTime, mongoAvgTime)
 
-print(f"Testing Update speeds for patient_vitals")
+print(f"Testing Update speeds for {tableName}")
 
 def runSQLUpdate():
     sql_cur.execute("UPDATE patient")
