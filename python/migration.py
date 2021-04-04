@@ -79,7 +79,7 @@ for i in patient_result:
             }
     patient_list.append(patient)
 res = patient_collection.insert_many(patient_list)
-print(res.inserted_ids)
+# print(res.inserted_ids)
 #----------------------------
 
 # ----------- Insert patient_vital data -----------
@@ -89,6 +89,7 @@ patient_vital_collection.drop()
 patient_vital_list = []
 
 for i in patient_vitals_result:
+    print(i['vital_datetime'])
     patient_vital = {
             "patient_vital_id" : i['pv_id'],
             "patient_id" : i['patient_patient_id'],
@@ -102,9 +103,9 @@ for i in patient_vitals_result:
     print(patient_vital)
     patient_vital_list.append(patient_vital)
 
-pp.pprint(patient_vital_list)
+# pp.pprint(patient_vital_list)
 res = patient_vital_collection.insert_many(patient_vital_list)
-print(res.inserted_ids)
+# print(res.inserted_ids)
 
 # ----------- Insert covid19 test data -----------
 covid_collection = hospital_db["covid_detail"]
@@ -114,7 +115,7 @@ covid_detail_list = []
 
 sql_cur.execute("SELECT * FROM covid19_details INNER JOIN patient_vitals ON covid19_details.covid_id = patient_vitals.covid19_details_covid_id ")
 covid_vital_result = sql_cur.fetchall()
-pp.pprint(covid_vital_result)
+# pp.pprint(covid_vital_result)
 for i in covid_vital_result:
     covid_detail = {
         "covid_detail_id": i['covid_id'],
@@ -126,10 +127,10 @@ for i in covid_vital_result:
         "symptoms": i['symptoms'],
         "condition": i['condition_status']
     }
-    print(covid_detail)
+    # print(covid_detail)
     covid_detail_list.append(covid_detail)
 
 res = covid_collection.insert_many(covid_detail_list)
-print(res.inserted_ids)
+# print(res.inserted_ids)
 
 sql_conn.close()

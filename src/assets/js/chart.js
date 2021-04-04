@@ -13,6 +13,9 @@ $(document).ready(function() {
 			type: 'GET',
 			url: Route.baseUrl + endpoint,
 			success: function(data) {
+				console.log(data.length);
+				console.log(data);
+				console.log(data[data.length-1]);
 				generateCharts(data.slice(Math.max(data.length-24, 0)));
 				var lastData = data.pop();
 				generateCardData(lastData);
@@ -105,8 +108,9 @@ $(document).ready(function() {
 			diastolicBp.push(i.bp_diastolic);
 			tempData.push(i.temperature);
 			
+			// console.log(i.vital_datetime)
 			var date = new Date(i.vital_datetime)
-			console.log(date);
+			// console.log(date);
 			var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
 			hours = hours < 10 ? "0" + hours : hours;
 			var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
@@ -125,7 +129,6 @@ $(document).ready(function() {
 	}
 
 	function generateHeartRateChart(heartRateData, timeData) {
-		console.log(timeData);
 		var lineChartData = {
 			labels: timeData,
 			datasets: [{
