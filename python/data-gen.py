@@ -1,6 +1,7 @@
 """
     Data generation program to emulate taking in vitals data for patient
 """
+from signal import signal, SIGINT
 import pprint
 import pandas
 import mariadb
@@ -61,6 +62,14 @@ def generateVitals(patient_vital, vital_info):
     patient_vital.bp_diastolic = random.randint(vital_info['min_bp_diastolic'], vital_info['max_bp_diastolic'])
     patient_vital.temperature = random.uniform(vital_info['min_temp'], vital_info['max_temp'])
     return patient_vital
+
+def signal_handler(receiver, frame):
+    print("\nClosing db connections")
+    sql_conn.close()
+    mongo_client.close()
+    exit()
+    
+signal(SIGINT, signal_handler)
 #------------------------------
 
 pp=pprint.PrettyPrinter(indent=4)
