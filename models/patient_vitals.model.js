@@ -23,7 +23,7 @@ Patient_vitals.create = (newPatientVitalsRecord, result) => {
   };
 
   Patient_vitals.findByPId = (p_id, result) => {
-    sql.query(`SELECT * FROM patient_vitals WHERE patient_patient_id = ${p_id}`,(err, res) => {
+    sql.query(`SELECT * FROM patient_vitals WHERE patient_patient_id = ${p_id} ORDER BY vital_datetime ASC`,(err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);

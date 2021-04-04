@@ -25,7 +25,10 @@ Patient_vitals.create = (newPatientVitalsRecord, result) => {
 
   Patient_vitals.findByPId = (p_id, result) => {
     const query = {patient_id: parseInt(p_id)};
-    patientVitalCollection.find(query).toArray(function(err, results) {
+    const options = {
+      $sort: { vital_datetime : 1 }
+    };
+    patientVitalCollection.find(query).sort({vital_datetime:1}).toArray(function(err, results) {
       if (err) {result( err, null )};
       result(null, results);
       return;
