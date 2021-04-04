@@ -35,7 +35,7 @@ sql_cur = sql_conn.cursor(dictionary=True)
 sql_cur.execute("SELECT * FROM patient;")
 patient_result = sql_cur.fetchall()
 
-sql_cur.execute("SELECT * FROM patient_vitals")
+sql_cur.execute("SELECT * FROM patient_vital")
 patient_vitals_result = sql_cur.fetchall()
 
 sql_cur.execute("SELECT * FROM doctor")
@@ -113,7 +113,7 @@ covid_collection.drop()
 
 covid_detail_list = []
 
-sql_cur.execute("SELECT * FROM covid19_details INNER JOIN patient_vitals ON covid19_details.covid_id = patient_vitals.covid19_details_covid_id ")
+sql_cur.execute("SELECT * FROM covid19_details INNER JOIN patient_vital ON covid19_details.covid_id = patient_vital.covid19_details_covid_id ")
 covid_vital_result = sql_cur.fetchall()
 # pp.pprint(covid_vital_result)
 for i in covid_vital_result:

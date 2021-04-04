@@ -1,16 +1,16 @@
 const sql = require("./db.sql.js");
 
 // constructor
-const Patient_vitals = function (patient_vitals) {
-  this.heart_rate = patient_vitals.heart_rate;
-  this.bp_systolic = patient_vitals.systolic_bp;
-  this.bp_diastolic = patient_vitals.diastolic_bp;
-  this.temperature = patient_vitals.temperature
+const Patient_vitals = function (patient_vital) {
+  this.heart_rate = patient_vital.heart_rate;
+  this.bp_systolic = patient_vital.systolic_bp;
+  this.bp_diastolic = patient_vital.diastolic_bp;
+  this.temperature = patient_vital.temperature
 };
 
 
 Patient_vitals.create = (newPatientVitalsRecord, result) => {
-    sql.query("INSERT INTO patient_vitals SET ?", newPatientVitalsRecord, (err, res) => {
+    sql.query("INSERT INTO patient_vital SET ?", newPatientVitalsRecord, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -23,7 +23,7 @@ Patient_vitals.create = (newPatientVitalsRecord, result) => {
   };
 
   Patient_vitals.findByPId = (p_id, result) => {
-    sql.query(`SELECT * FROM patient_vitals WHERE patient_patient_id = ${p_id} ORDER BY vital_datetime ASC`,(err, res) => {
+    sql.query(`SELECT * FROM patient_vital WHERE patient_patient_id = ${p_id} ORDER BY vital_datetime ASC`,(err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -40,7 +40,7 @@ Patient_vitals.create = (newPatientVitalsRecord, result) => {
 
   
   Patient_vitals.findByPvId = (pv_id, result) => {
-    sql.query(`SELECT * FROM patient_vitals WHERE pv_id = ${pv_id}`, (err, res) => {
+    sql.query(`SELECT * FROM patient_vital WHERE pv_id = ${pv_id}`, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -60,7 +60,7 @@ Patient_vitals.create = (newPatientVitalsRecord, result) => {
 
 
   Patient_vitals.getAll = result => {
-    sql.query("SELECT * FROM patient_vitals", (err, res) => {
+    sql.query("SELECT * FROM patient_vital", (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);
@@ -72,10 +72,10 @@ Patient_vitals.create = (newPatientVitalsRecord, result) => {
     });
   };
 
-  Patient_vitals.updateById = (pv_id, patient_vitals, result) => {
+  Patient_vitals.updateById = (pv_id, patient_vital, result) => {
     sql.query(
-      "UPDATE patient_vitals SET heart_rate = ?, blood_pressure = ?, temperature = ? WHERE pv_id = ?",
-      [patient_vitals.heart_rate, patient_vitals.blood_pressure, patient_vitals.temperature, pv_id],
+      "UPDATE patient_vital SET heart_rate = ?, blood_pressure = ?, temperature = ? WHERE pv_id = ?",
+      [patient_vital.heart_rate, patient_vital.blood_pressure, patient_vital.temperature, pv_id],
       (err, res) => {
         if (err) {
           console.log("error: ", err);
@@ -89,14 +89,14 @@ Patient_vitals.create = (newPatientVitalsRecord, result) => {
           return;
         }
   
-        console.log("updated patient: ", { pv_id: pv_id, ...patient_vitals });
-        result(null, { pv_id: pv_id, ...patient_vitals });
+        console.log("updated patient: ", { pv_id: pv_id, ...patient_vital });
+        result(null, { pv_id: pv_id, ...patient_vital });
       }
     );
   };
   
   Patient_vitals.remove = (pv_id, result) => {
-    sql.query("DELETE FROM patient_vitals WHERE pv_id = ?", pv_id, (err, res) => {
+    sql.query("DELETE FROM patient_vital WHERE pv_id = ?", pv_id, (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);
@@ -115,7 +115,7 @@ Patient_vitals.create = (newPatientVitalsRecord, result) => {
   };
   
   Patient_vitals.removeAll = result => {
-    sql.query("DELETE FROM patient_vitals", (err, res) => {
+    sql.query("DELETE FROM patient_vital", (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(null, err);

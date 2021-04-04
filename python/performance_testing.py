@@ -95,6 +95,11 @@ print(f"Average time for NoSQL is: {mongoAvgTime}ms")
 
 printResults("Query", sqlAvgTime, mongoAvgTime)
 
+print(f"Testing Update speeds for patient_vitals")
+
+def runSQLUpdate():
+    sql_cur.execute("UPDATE patient")
+
 print("\nClosing connections")
 sql_conn.close()
 mongo_client.close()
