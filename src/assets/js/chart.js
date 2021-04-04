@@ -7,15 +7,16 @@ $(document).ready(function() {
 	var currentDate = document.getElementById("currentDate");
 
 	function getPatientVital(patient) {
-		console.log(patient);
 		var endpoint = "/get_patient_vitals/"+patient.patient_id;
 
 		$.ajax({
 			type: 'GET',
 			url: Route.baseUrl + endpoint,
 			success: function(data) {
+				console.log(data.length);
 				console.log(data);
-				generateCharts(data);
+				console.log(data[data.length-1]);
+				generateCharts(data.slice(Math.max(data.length-24, 0)));
 				var lastData = data.pop();
 				generateCardData(lastData);
 				getCovidDetails(lastData)
@@ -25,7 +26,6 @@ $(document).ready(function() {
 	}
 	
 	function getCovidDetails(pV) {
-		console.log(pV.covid19_details_covid_id);
 		var endpoint = "/covid19_details/"+pV.covid19_details_covid_id;
 		$.ajax({
 			type: 'GET',
@@ -86,7 +86,6 @@ $(document).ready(function() {
 
 	function generateCardData(patientData) {
 
-		console.log(patientData);
 		patientHR.textContent = patientData.heart_rate;
 
 		patientBP.textContent = `${patientData.bp_systolic}/${patientData.bp_diastolic}`;
@@ -96,6 +95,8 @@ $(document).ready(function() {
 
 	function generateCharts(patientData) {
 
+		console.log(patientData);
+		var timeData = [];
 		var heartRateData = [];
 		var systolicBp = [];
 		var diastolicBp = [];
@@ -106,6 +107,15 @@ $(document).ready(function() {
 			systolicBp.push(i.bp_systolic);
 			diastolicBp.push(i.bp_diastolic);
 			tempData.push(i.temperature);
+			
+			// console.log(i.vital_datetime)
+			var date = new Date(i.vital_datetime)
+			// console.log(date);
+			var hours = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+			hours = hours < 10 ? "0" + hours : hours;
+			var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+			var time = `${hours}${minutes}`
+			timeData.push(time)
 		}
 
 		var bpData = {
@@ -113,15 +123,14 @@ $(document).ready(function() {
 			"diastolicBp": diastolicBp
 		};
 
-		generateHeartRateChart(heartRateData);
-		generateBloodPressureChart(bpData);
-		generateTempChart(tempData);
+		generateHeartRateChart(heartRateData, timeData);
+		generateBloodPressureChart(bpData, timeData);
+		generateTempChart(tempData, timeData);
 	}
 
-	function generateHeartRateChart(heartRateData) {
+	function generateHeartRateChart(heartRateData, timeData) {
 		var lineChartData = {
-			labels: ["0000","0100","0200","0300","0400","0500","0600","0700","0800","0900","1000","1100","1200","1300",
-			"1400","1500","1600","1700","1800","1900","2000","2100","2200","2300"],
+			labels: timeData,
 			datasets: [{
 				label: "Heart Rate",
 				backgroundColor: "rgba(0, 158, 251, 0.5)",
@@ -147,10 +156,9 @@ $(document).ready(function() {
 	}
 	// Blood Pressure
 
-	function generateBloodPressureChart(bpData) {
+	function generateBloodPressureChart(bpData, timeData) {
 		var lineChartData = {
-			labels: ["0000","0100","0200","0300","0400","0500","0600","0700","0800","0900","1000","1100","1200","1300",
-			"1400","1500","1600","1700","1800","1900","2000","2100","2200","2300"],
+			labels: timeData,
 			datasets: [{
 				label: "Systolic Value",
 				backgroundColor: "rgba(0, 158, 251, 0.5)",
@@ -182,11 +190,10 @@ $(document).ready(function() {
 		});
 	}
 	
-	function generateTempChart(tempData) {
+	function generateTempChart(tempData, timeData) {
 		// Temperature
 		var lineChartData = {
-			labels: ["0000","0100","0200","0300","0400","0500","0600","0700","0800","0900","1000","1100","1200","1300",
-			"1400","1500","1600","1700","1800","1900","2000","2100","2200","2300"],
+			labels: timeData,
 			datasets: [{
 				label: "Temperature",
 				backgroundColor: "rgba(0, 158, 251, 0.5)",
