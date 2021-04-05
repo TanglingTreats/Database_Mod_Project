@@ -154,7 +154,7 @@ while(True):
         max = enumRange['covidMax']
         patient_vital = generateVitals(patient_vital, covid_vital_info)
 
-    print(patient_vital.bp_diastolic)
+    # print(patient_vital.bp_diastolic)
     symptoms = ""
     addedSymptom = []
 
