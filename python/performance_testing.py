@@ -3,7 +3,7 @@
 """
 
 from signal import signal, SIGINT
-import data_gen as DataGen
+# import data_gen as DataGen
 import pprint
 import pandas
 import mariadb

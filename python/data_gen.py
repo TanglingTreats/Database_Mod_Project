@@ -76,6 +76,9 @@ def insert_data(pv_id, heart_rate, bp_systolic, bp_diastolic, temperature, vital
         patient_patient_vitals_pv_id, patient_doctor_doctor_id, covid19_details_covid_id)
         VALUES (?, ?, ? ,? ,? ,? ,? ,? ,? ,? ,? ,?)""", (pv_id, heart_rate, bp_systolic, bp_diastolic, temperature, vital_datetime, patient_patient_id, patient_room_room_id, patient_room_hospital_hos_id, patient_patient_vitals_pv_id, patient_doctor_doctor_id, covid19_details_covid_id))
     
+def getNextDateTime(currentDate):
+    return currentDate + datetime.timedelta(hours = hourCounter, minutes=30)
+
     
 signal(SIGINT, signal_handler)
 #------------------------------

@@ -78,7 +78,7 @@ for i in patient_result:
                     "bed": room['bed_no']
                     }
             }
-    # patient_list.append(patient)
+    patient_list.append(patient)
 res = patient_collection.insert_many(patient_list)
 # print(res.inserted_ids)
 #----------------------------
@@ -101,7 +101,7 @@ for i in patient_vitals_result:
             "vital_datetime" : i['vital_datetime'],
             "covid19_details_covid_id" : i['covid19_details_covid_id']
             }
-    print(patient_vital)
+    # print(patient_vital)
     patient_vital_list.append(patient_vital)
 
 # pp.pprint(patient_vital_list)
