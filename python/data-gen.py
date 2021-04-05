@@ -195,7 +195,7 @@ while(True):
     # else:
     #     currState = 0
 
-    time.sleep(2)
+    time.sleep(1)
     
 # ---------------------------------
 sql_conn.close()
