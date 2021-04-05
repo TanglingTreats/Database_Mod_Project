@@ -69,6 +69,14 @@ def signal_handler(receiver, frame):
     mongo_client.close()
     exit()
     
+def insert_data(pv_id, heart_rate, bp_systolic, bp_diastolic, temperature, vital_datetime, patient_patient_id, patient_room_room_id, patient_room_hospital_hos_id, patient_patient_vitals_pv_id, patient_doctor_doctor_id, covid19_details_covid_id):
+    sql_cur.execute("""INSERT INTO patient_vital 
+        (pv_id, heart_rate, bp_systolic, bp_diastolic, temperature, vital_datetime,
+         patient_patient_id, patient_room_room_id, patient_room_hospital_hos_id, 
+        patient_patient_vitals_pv_id, patient_doctor_doctor_id, covid19_details_covid_id)
+        VALUES (?, ?, ? ,? ,? ,? ,? ,? ,? ,? ,? ,?)""", (pv_id, heart_rate, bp_systolic, bp_diastolic, temperature, vital_datetime, patient_patient_id, patient_room_room_id, patient_room_hospital_hos_id, patient_patient_vitals_pv_id, patient_doctor_doctor_id, covid19_details_covid_id))
+    
+    
 signal(SIGINT, signal_handler)
 #------------------------------
 
@@ -169,11 +177,7 @@ while(True):
             symptom = Symptoms(sympInt).name.replace("_"," ")
             symptoms += symptom
 
-    sql_cur.execute("""INSERT INTO patient_vital 
-        (pv_id, heart_rate, bp_systolic, bp_diastolic, temperature, vital_datetime,
-         patient_patient_id, patient_room_room_id, patient_room_hospital_hos_id, 
-        patient_patient_vitals_pv_id, patient_doctor_doctor_id, covid19_details_covid_id)
-        VALUES (?, ?, ? ,? ,? ,? ,? ,? ,? ,? ,? ,?)""", (patient_vital.pv_id, patient_vital.heart_rate, patient_vital.bp_systolic, patient_vital.bp_diastolic, patient_vital.temperature, patient_vital.vital_datetime, patient_vital.patient_patient_id, patient_vital.patient_room_room_id, patient_vital.patient_room_hospital_hos_id, patient_vital.patient_patient_vitals_pv_id, patient_vital.patient_doctor_doctor_id, patient_vital.covid19_details_covid_id))
+    insert_data(patient_vital.pv_id, patient_vital.heart_rate, patient_vital.bp_systolic, patient_vital.bp_diastolic, patient_vital.temperature, patient_vital.vital_datetime, patient_vital.patient_patient_id, patient_vital.patient_room_room_id, patient_vital.patient_room_hospital_hos_id, patient_vital.patient_patient_vitals_pv_id, patient_vital.patient_doctor_doctor_id, patient_vital.covid19_details_covid_id)
     
     patient_vital.pv_id += 1
     entryCount += 1
