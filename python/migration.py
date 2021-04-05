@@ -57,6 +57,7 @@ patient_collection = hospital_db['patient']
 patient_collection.drop()
 
 # ----------- Insert patient data -----------
+print("Starting SQL to NoSQL migration")
 patient_list = []
 
 for i in patient_result:
@@ -89,7 +90,7 @@ patient_vital_collection.drop()
 patient_vital_list = []
 
 for i in patient_vitals_result:
-    print(i['vital_datetime'])
+    # print(i['vital_datetime'])
     patient_vital = {
             "patient_vital_id" : i['pv_id'],
             "patient_id" : i['patient_patient_id'],
@@ -100,7 +101,7 @@ for i in patient_vitals_result:
             "vital_datetime" : i['vital_datetime'],
             "covid19_details_covid_id" : i['covid19_details_covid_id']
             }
-    print(patient_vital)
+    # print(patient_vital)
     patient_vital_list.append(patient_vital)
 
 # pp.pprint(patient_vital_list)
@@ -134,3 +135,5 @@ res = covid_collection.insert_many(covid_detail_list)
 # print(res.inserted_ids)
 
 sql_conn.close()
+
+print("Data migration complete")
