@@ -99,7 +99,7 @@ DROP TABLE IF EXISTS `csc2008_hospital`.`patient` ;
 CREATE TABLE IF NOT EXISTS `csc2008_hospital`.`patient` (
   `patient_id` INT(11) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
-  `age` INT(11) NOT NULL,
+  `age` INT(2) NOT NULL,
   `gender` VARCHAR(45) NOT NULL,
   `room_id` INT(11) NOT NULL,
   `doctor_id` INT(11) NOT NULL,
