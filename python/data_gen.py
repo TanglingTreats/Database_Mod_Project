@@ -131,71 +131,80 @@ patient_vital = PatientVital(currPvID+1, currTime)
 hourCounter = 0
 minutesCounter = 1
 entryCount = 0
+if (len(sys.argv) > 1):
+    limit = int(sys.argv[1])
+else:
+    limit = 10
 
 # ------ Data Generation Loop ------
-while(True):
-    min = 0
-    max = 0
+def generateData(entryCount, limit, patient_vital):
+    while(entryCount < limit):
+        min = 0
+        max = 0
 
-    patient_vital.vital_datetime += datetime.timedelta(hours = hourCounter, minutes=30)
-    print(patient_vital.vital_datetime)
-    # if(minutesCounter % 2 == 0):
-    #     patient_vital.vital_datetime += datetime.timedelta(hours = hourCounter, minutes=0)
-    #     print(patient_vital.vital_datetime)
-    # else:
-    #     patient_vital.vital_datetime += datetime.timedelta(hours = hourCounter, minutes=30)
-    #     print(patient_vital.vital_datetime)
+        patient_vital.vital_datetime += datetime.timedelta(hours = hourCounter, minutes=30)
+        print(patient_vital.vital_datetime)
+        # if(minutesCounter % 2 == 0):
+        #     patient_vital.vital_datetime += datetime.timedelta(hours = hourCounter, minutes=0)
+        #     print(patient_vital.vital_datetime)
+        # else:
+        #     patient_vital.vital_datetime += datetime.timedelta(hours = hourCounter, minutes=30)
+        #     print(patient_vital.vital_datetime)
+            
+        # minutesCounter += 1
+        # if(minutesCounter == 2):
+        #     minutesCounter = 0
+        #     hourCounter += 1
+
+        if(CovidStatus(currState) is CovidStatus.NOT_INFECTED):
+            # print("is not infected")
+            min = enumRange['regMin']
+            max = enumRange['regMax']
+            patient_vital = generateVitals(patient_vital, regular_vital_info)
+        elif(CovidStatus(currState) is CovidStatus.INFECTED):
+            # print("is infected")
+            min = enumRange['covidMin']
+            max = enumRange['covidMax']
+            patient_vital = generateVitals(patient_vital, covid_vital_info)
+
+        # print(patient_vital.bp_diastolic)
+        symptoms = ""
+        addedSymptom = []
+
+        for i in range(random.randint(1, 3)):
+
+            sympInt = random.randint(min, max)
+
+            if sympInt not in addedSymptom:
+                if(i != 0):
+                    symptoms += ", "
+                addedSymptom.append(sympInt)
+                symptom = Symptoms(sympInt).name.replace("_"," ")
+                symptoms += symptom
+
+        insert_data(patient_vital.pv_id, patient_vital.heart_rate, patient_vital.bp_systolic, patient_vital.bp_diastolic, patient_vital.temperature, patient_vital.vital_datetime, patient_vital.patient_patient_id, patient_vital.patient_room_room_id, patient_vital.patient_room_hospital_hos_id, patient_vital.patient_patient_vitals_pv_id, patient_vital.patient_doctor_doctor_id, patient_vital.covid19_details_covid_id)
         
-    # minutesCounter += 1
-    # if(minutesCounter == 2):
-    #     minutesCounter = 0
-    #     hourCounter += 1
+        patient_vital.pv_id += 1
+        entryCount += 1
+        # if (entryCount == 10):
+        #     try:
+        #         sql_conn.commit()
+        #         print("Entries committed")
+        #     except mariadb.Error as e:
+        #         print(f'Error committing changes: {e}')
+        #     entryCount=0
 
-    if(CovidStatus(currState) is CovidStatus.NOT_INFECTED):
-        # print("is not infected")
-        min = enumRange['regMin']
-        max = enumRange['regMax']
-        patient_vital = generateVitals(patient_vital, regular_vital_info)
-    elif(CovidStatus(currState) is CovidStatus.INFECTED):
-        # print("is infected")
-        min = enumRange['covidMin']
-        max = enumRange['covidMax']
-        patient_vital = generateVitals(patient_vital, covid_vital_info)
+        # Determine if patient has covid or not. End of loop to-do
+        # if(random.randint(0,10) < 4):
+        #     currState = 1
+        # else:
+        #     currState = 0
 
-    # print(patient_vital.bp_diastolic)
-    symptoms = ""
-    addedSymptom = []
-
-    for i in range(random.randint(1, 3)):
-
-        sympInt = random.randint(min, max)
-
-        if sympInt not in addedSymptom:
-            if(i != 0):
-                symptoms += ", "
-            addedSymptom.append(sympInt)
-            symptom = Symptoms(sympInt).name.replace("_"," ")
-            symptoms += symptom
-
-    insert_data(patient_vital.pv_id, patient_vital.heart_rate, patient_vital.bp_systolic, patient_vital.bp_diastolic, patient_vital.temperature, patient_vital.vital_datetime, patient_vital.patient_patient_id, patient_vital.patient_room_room_id, patient_vital.patient_room_hospital_hos_id, patient_vital.patient_patient_vitals_pv_id, patient_vital.patient_doctor_doctor_id, patient_vital.covid19_details_covid_id)
-    
-    patient_vital.pv_id += 1
-    entryCount += 1
-    if (entryCount == 10):
-        try:
-            sql_conn.commit()
-            print("Entries committed")
-        except mariadb.Error as e:
-            print(f'Error committing changes: {e}')
-        entryCount=0
-
-    # Determine if patient has covid or not. End of loop to-do
-    # if(random.randint(0,10) < 4):
-    #     currState = 1
-    # else:
-    #     currState = 0
-
-    time.sleep(1)
+        time.sleep(1)
+    sql_conn.commit()
+    print("Entries committed")
     
 # ---------------------------------
+generateData(entryCount, limit, patient_vital)
 sql_conn.close()
+print("Connection closed")
