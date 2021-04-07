@@ -97,6 +97,15 @@ def runSQLUpdate(*args):
 def runSQLInsert(*args):
     DataGen.insert_data(args[0])
     DataGen.sql_conn.commit()
+    
+def runSQLDelete(*args):
+    sql_cur.execute(f"DELETE FROM {tableName}")
+
+def sqlPrintResults(totalTimes):
+    print("\nCalculating times for SQL")
+    sqlAvgTime = getAvgTimesInMilli(totalTimes)
+    print(f"Average time for SQL is: {sqlAvgTime}ms")
+    return sqlAvgTime
 
 # ----------- NoSQL -------------
 def runNoSQLFind(*args):
@@ -109,12 +118,19 @@ def runNoSQLUpdate(*args):
 def runNoSQLInsert(*args):
     # define insert functions
     res = patient_vital_collection.insert_one(args[1])
+    
+def runNoSQLDelete(*args):
+    patient_vital_collection.delete_many({})
 
+def noSqlPrintResults(totalsTimes):
+    print("\nCalculating times for NoSQL")
+    noSQLAvgTime = getAvgTimesInMilli(totalTimes)
+    print(f"Average time for NoSQL is: {noSQLAvgTime}ms")
+    return noSQLAvgTime
 
 p_id = int(DataGen.latest_patient_vital_record['pv_id'])
 v_datetime = DataGen.latest_patient_vital_record['vital_datetime']
 patient_vital = DataGen.PatientVital(p_id+1, v_datetime)
-print(patient_vital.pv_id)
 patient_vital=DataGen.generateVitals(patient_vital, DataGen.covid_vital_info)
 
 # Get cursor
@@ -136,9 +152,10 @@ print(f"\nTesting Query speeds for {tableName}")
 
 runTest(runSQLSelect)
     
-print("\nCalculating times for SQL")
-sqlAvgTime = getAvgTimesInMilli(totalTimes)
-print(f"Average time for SQL is: {sqlAvgTime}ms")
+sqlAvgTime = sqlPrintResults(totalTimes)
+# print("\nCalculating times for SQL")
+# sqlAvgTime = getAvgTimesInMilli(totalTimes)
+# print(f"Average time for SQL is: {sqlAvgTime}ms")
 
     
 runTest(runNoSQLFind)
@@ -148,6 +165,7 @@ noSQLAvgTime = getAvgTimesInMilli(totalTimes)
 print(f"Average time for NoSQL is: {noSQLAvgTime}ms")
 
 printResults("Query", sqlAvgTime, noSQLAvgTime)
+# ------------------------------------------
 
 
 # ---------- Insert -----------
@@ -155,9 +173,10 @@ print(f"\n\nTesting Insert speeds for {tableName}")
 
 runTest(runSQLInsert, patient_vital=patient_vital)
 
-print("\nCalculating times for SQL")
-sqlAvgTime = getAvgTimesInMilli(totalTimes)
-print(f"Average time for SQL is: {sqlAvgTime}ms")
+sqlAvgTime = sqlPrintResults(totalTimes)
+# print("\nCalculating times for SQL")
+# sqlAvgTime = getAvgTimesInMilli(totalTimes)
+# print(f"Average time for SQL is: {sqlAvgTime}ms")
 
 runTest(runNoSQLInsert, patient_vital=patient_vital)
 
@@ -166,16 +185,17 @@ noSQLAvgTime = getAvgTimesInMilli(totalTimes)
 print(f"Average time for NoSQL is: {noSQLAvgTime}ms")
 
 printResults("Insert", sqlAvgTime, noSQLAvgTime)
+# ------------------------------------------
 
 # ---------- Update -----------
 print(f"\n\nTesting Update speeds for {tableName}")
 
 runTest(runSQLUpdate)
 
-print("\nCalculating times for SQL")
-sqlAvgTime = getAvgTimesInMilli(totalTimes)
-print(f"Average time for SQL is: {sqlAvgTime}ms")
-
+sqlAvgTime = sqlPrintResults(totalTimes)
+# print("\nCalculating times for SQL")
+# sqlAvgTime = getAvgTimesInMilli(totalTimes)
+# print(f"Average time for SQL is: {sqlAvgTime}ms")
 
 runTest(runNoSQLUpdate)
 
@@ -185,10 +205,22 @@ print(f"Average time for NoSQL is: {noSQLAvgTime}ms")
 
 printResults("Update", sqlAvgTime, noSQLAvgTime)
 
-# ---------- Update -----------
+# ------------------------------------------
+
+# ---------- Delete -----------
+print(f"\n\nTesting Delete speeds for {tableName}")
+
+runTest(runSQLDelete)
+sqlAvgTime = sqlPrintResults(totalTimes)
+
+runTest(noSQLAvgTime)
+noSQLAvgTime = sqlPrintResults(totalTimes)
+
+printResults("Delete", sqlAvgTime, noSQLAvgTime)
+# ------------------------------------------
 
 print("\nClosing connections")
 sql_conn.close()
 mongo_client.close()
 
-    
+ 
