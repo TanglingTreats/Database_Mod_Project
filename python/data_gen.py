@@ -45,13 +45,6 @@ class PatientVital():
         self.covid19_details_covid_id = 6500
     
 
-enumRange = {
-        "covidMin" : 0,
-        "covidMax" : len(Symptoms)-2,
-        "regMin" : 5,
-        "regMax" : len(Symptoms)-1
-        }
-
 # ----- Util Functions -----
 def getTime(): 
     return pandas.to_datetime(datetime.datetime.today()).round('H')
@@ -61,6 +54,7 @@ def generateVitals(patient_vital, vital_info):
     patient_vital.bp_systolic = random.randint(vital_info['min_bp_systolic'], vital_info['max_bp_systolic'])
     patient_vital.bp_diastolic = random.randint(vital_info['min_bp_diastolic'], vital_info['max_bp_diastolic'])
     patient_vital.temperature = random.uniform(vital_info['min_temp'], vital_info['max_temp'])
+    patient_vital.vital_datetime += datetime.timedelta(hours = hourCounter, minutes=30)
     return patient_vital
 
 def signal_handler(receiver, frame):
@@ -69,12 +63,12 @@ def signal_handler(receiver, frame):
     mongo_client.close()
     exit()
     
-def insert_data(pv_id, heart_rate, bp_systolic, bp_diastolic, temperature, vital_datetime, patient_patient_id, patient_room_room_id, patient_room_hospital_hos_id, patient_patient_vitals_pv_id, patient_doctor_doctor_id, covid19_details_covid_id):
+def insert_data(patient_vital):
     sql_cur.execute("""INSERT INTO patient_vital 
         (pv_id, heart_rate, bp_systolic, bp_diastolic, temperature, vital_datetime,
          patient_patient_id, patient_room_room_id, patient_room_hospital_hos_id, 
         patient_patient_vitals_pv_id, patient_doctor_doctor_id, covid19_details_covid_id)
-        VALUES (?, ?, ? ,? ,? ,? ,? ,? ,? ,? ,? ,?)""", (pv_id, heart_rate, bp_systolic, bp_diastolic, temperature, vital_datetime, patient_patient_id, patient_room_room_id, patient_room_hospital_hos_id, patient_patient_vitals_pv_id, patient_doctor_doctor_id, covid19_details_covid_id))
+        VALUES (?, ?, ? ,? ,? ,? ,? ,? ,? ,? ,? ,?)""", (patient_vital.pv_id, patient_vital.heart_rate, patient_vital.bp_systolic, patient_vital.bp_diastolic, patient_vital.temperature, patient_vital.vital_datetime, patient_vital.patient_patient_id, patient_vital.patient_room_room_id, patient_vital.patient_room_hospital_hos_id, patient_vital.patient_patient_vitals_pv_id, patient_vital.patient_doctor_doctor_id, patient_vital.covid19_details_covid_id))
     
 def getNextDateTime(currentDate):
     return currentDate + datetime.timedelta(hours = hourCounter, minutes=30)
@@ -83,69 +77,13 @@ def getNextDateTime(currentDate):
 signal(SIGINT, signal_handler)
 #------------------------------
 
-pp=pprint.PrettyPrinter(indent=4)
-
-# Try connection to mariadb
-try:
-    sql_conn = mariadb.connect(
-        user="root",
-        password="password",
-        host="localhost",
-        port=3306,
-        database="csc2008_hospital"
-    )
-except mariadb.Error as e:
-    print(f"Error connecting to MariaDB platform: {e}")
-    sys.exit(1)
-
-# Try connection for mongoDB
-try:
-    mongo_client = pymongo.MongoClient("mongodb://localhost:27017/")
-except:
-    print("No hosts found! Did you start mongodb service?")
-
-# Get cursor
-sql_cur = sql_conn.cursor(dictionary=True)
-
-# Arrange in descending to get latest entry
-sql_cur.execute("SELECT * FROM patient_vital ORDER BY vital_datetime DESC")
-latest_patient_vital_record = sql_cur.fetchone()
-
-sql_cur.execute("SELECT MIN(heart_rate) as min_heart_rate, MAX(heart_rate) as max_heart_rate, MIN(bp_systolic) as min_bp_systolic, MAX(bp_systolic) as max_bp_systolic, MIN(bp_diastolic) as min_bp_diastolic, MAX(bp_diastolic) max_bp_diastolic, MIN(temperature) as min_temp, MAX(temperature) as max_temp FROM patient_vital")
-
-covid_vital_info = sql_cur.fetchone()
-# print(latest_patient_vital_record['vital_datetime'])
-regular_vital_info = {
-    "min_heart_rate": 60,
-    "max_heart_rate": 100,
-    "min_bp_systolic": 90,
-    "max_bp_systolic": 120,
-    "min_bp_diastolic": 60,
-    "max_bp_diastolic": 80,
-    "min_temp": 35.5,
-    "max_temp": 37.5 
-}
-
-# 0 is not infected, 1 is infected
-currState = 1
-currTime = latest_patient_vital_record['vital_datetime']
-currPvID = latest_patient_vital_record['pv_id']
-patient_vital = PatientVital(currPvID+1, currTime)
-hourCounter = 0
-minutesCounter = 1
-entryCount = 0
-if (len(sys.argv) > 1):
-    limit = int(sys.argv[1])
-else:
-    limit = 10
-
 # ------ Data Generation Loop ------
 def generateData(entryCount, limit, patient_vital):
     while(entryCount < limit):
         min = 0
         max = 0
 
-        patient_vital.vital_datetime += datetime.timedelta(hours = hourCounter, minutes=30)
+        # patient_vital.vital_datetime += datetime.timedelta(hours = hourCounter, minutes=30)
         print(patient_vital.vital_datetime)
         # if(minutesCounter % 2 == 0):
         #     patient_vital.vital_datetime += datetime.timedelta(hours = hourCounter, minutes=0)
@@ -185,7 +123,7 @@ def generateData(entryCount, limit, patient_vital):
                 symptom = Symptoms(sympInt).name.replace("_"," ")
                 symptoms += symptom
 
-        insert_data(patient_vital.pv_id, patient_vital.heart_rate, patient_vital.bp_systolic, patient_vital.bp_diastolic, patient_vital.temperature, patient_vital.vital_datetime, patient_vital.patient_patient_id, patient_vital.patient_room_room_id, patient_vital.patient_room_hospital_hos_id, patient_vital.patient_patient_vitals_pv_id, patient_vital.patient_doctor_doctor_id, patient_vital.covid19_details_covid_id)
+        insert_data(patient_vital)
         
         patient_vital.pv_id += 1
         entryCount += 1
@@ -208,6 +146,76 @@ def generateData(entryCount, limit, patient_vital):
     print("Entries committed")
     
 # ---------------------------------
-generateData(entryCount, limit, patient_vital)
-sql_conn.close()
-print("Connection closed")
+enumRange = {
+        "covidMin" : 0,
+        "covidMax" : len(Symptoms)-2,
+        "regMin" : 5,
+        "regMax" : len(Symptoms)-1
+        }
+
+pp=pprint.PrettyPrinter(indent=4)
+
+# Try connection to mariadb
+try:
+    sql_conn = mariadb.connect(
+        user="root",
+        password="password",
+        host="localhost",
+        port=3306,
+        database="csc2008_hospital"
+    )
+except mariadb.Error as e:
+    print(f"Error connecting to MariaDB platform: {e}")
+    sys.exit(1)
+
+# Try connection for mongoDB
+try:
+    mongo_client = pymongo.MongoClient("mongodb://localhost:27017/")
+except:
+    print("No hosts found! Did you start mongodb service?")
+
+# Get cursor
+sql_cur = sql_conn.cursor(dictionary=True)
+
+# Arrange in descending to get latest entry
+def getLatestPatientDetail():
+    sql_cur.execute("SELECT * FROM patient_vital ORDER BY pv_id DESC")
+    return sql_cur.fetchone()
+
+def getCovidVitalInfo():
+    sql_cur.execute("SELECT MIN(heart_rate) as min_heart_rate, MAX(heart_rate) as max_heart_rate, MIN(bp_systolic) as min_bp_systolic, MAX(bp_systolic) as max_bp_systolic, MIN(bp_diastolic) as min_bp_diastolic, MAX(bp_diastolic) max_bp_diastolic, MIN(temperature) as min_temp, MAX(temperature) as max_temp FROM patient_vital")
+
+    return sql_cur.fetchone()
+    
+covid_vital_info = getCovidVitalInfo()
+# print(latest_patient_vital_record['vital_datetime'])
+regular_vital_info = {
+    "min_heart_rate": 60,
+    "max_heart_rate": 100,
+    "min_bp_systolic": 90,
+    "max_bp_systolic": 120,
+    "min_bp_diastolic": 60,
+    "max_bp_diastolic": 80,
+    "min_temp": 35.5,
+    "max_temp": 37.5 
+}
+
+# 0 is not infected, 1 is infected
+currState = 1
+latest_patient_vital_record = getLatestPatientDetail()
+currTime = latest_patient_vital_record['vital_datetime']
+currPvID = latest_patient_vital_record['pv_id']
+patient_vital = PatientVital(currPvID+1, currTime)
+hourCounter = 0
+minutesCounter = 1
+entryCount = 0
+if (len(sys.argv) > 1):
+    limit = int(sys.argv[1])
+else:
+    limit = 10
+    print("NOTE: Run the script with a numbered argument! Default number is 10.\n")
+
+if(__name__ == "__main__"):
+    generateData(entryCount, limit, patient_vital)
+    sql_conn.close()
+    print("Connection closed")
