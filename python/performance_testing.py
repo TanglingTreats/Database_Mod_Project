@@ -100,6 +100,7 @@ def runSQLInsert(*args):
     
 def runSQLDelete(*args):
     sql_cur.execute(f"DELETE FROM {tableName}")
+    sql_conn.commit()
 
 def sqlPrintResults(totalTimes):
     print("\nCalculating times for SQL")
@@ -213,8 +214,8 @@ print(f"\n\nTesting Delete speeds for {tableName}")
 runTest(runSQLDelete)
 sqlAvgTime = sqlPrintResults(totalTimes)
 
-runTest(noSQLAvgTime)
-noSQLAvgTime = sqlPrintResults(totalTimes)
+runTest(runNoSQLDelete)
+noSQLAvgTime = noSqlPrintResults(totalTimes)
 
 printResults("Delete", sqlAvgTime, noSQLAvgTime)
 # ------------------------------------------
